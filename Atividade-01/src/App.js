@@ -27,17 +27,17 @@ function App(){
 }
 */
 
-/* Questão 03:
+ /* Questão 03:
 function App(){
   return(
     <div className='App'>
-
-    <Questao03 nome='Juan David Bizerra Pimentel' curso='Engenharia de Computação' cidade='Rio de Janeiro'/>
+    <Questao03/>
     </div>
   );
 }
-*/
+ */
 
+///*
 function App(){
   return(
     <div className='App'>
@@ -46,5 +46,8 @@ function App(){
     </div>
   );
 }
+//*/
+
+
 
 export default App;
