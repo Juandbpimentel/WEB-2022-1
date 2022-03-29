@@ -1,14 +1,15 @@
 import { React, Component } from "react"
-import Questao02 from "./Questao02"
-
+import { Questao0204 } from "./Questao02"
 class Questao04 extends Component {
     render() {
         return (
-            <Questao02
-                nome='Juan David Bizerra Pimentel'
-                curso='Engenharia de Computação'
-                cidade='Rio de Janeiro'
-            />
+            <div>
+                <Questao0204
+                    nome='Juan David Bizerra Pimentel'
+                    curso='Engenharia de Computação'
+                    cidade='Rio de Janeiro'
+                />
+            </div>
         )
     }
 }

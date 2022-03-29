@@ -1,10 +1,10 @@
 import React from "react"
-import Questao01 from "./Questao01"
+import { Questao0103 } from "./Questao01"
 
 const Questao03 = () => {
     return (
         <div>
-            <Questao01
+            <Questao0103
                 nome='Juan David Bizerra Pimentel'
                 curso='Engenharia de Computaçao'
                 cidade='Rio de Janeiro'

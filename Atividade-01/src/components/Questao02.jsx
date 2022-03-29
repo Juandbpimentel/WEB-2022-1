@@ -1,6 +1,6 @@
 import { React, Component } from "react"
 
-/*
+
 class Questao02 extends Component {
     render() {
         return (
@@ -12,9 +12,8 @@ class Questao02 extends Component {
         )
     }
 }
-*/
 
-class Questao02 extends Component {
+class Questao0204 extends Component {
     /*
     constructor(props) {
         super(props)
@@ -34,4 +33,4 @@ class Questao02 extends Component {
     }
 }
 
-export default Questao02
+export { Questao02, Questao0204 };

@@ -1,5 +1,5 @@
 import React from "react"
-/*
+
 const Questao01 = () => {
     return (
         <div>
@@ -9,8 +9,8 @@ const Questao01 = () => {
         </div>
     )
 }
-*/
-const Questao01 = (props) => {
+
+const Questao0103 = (props) => {
     const { nome, curso, cidade } = props
     return (
         <div>
@@ -21,4 +21,4 @@ const Questao01 = (props) => {
     )
 }
 
-export default Questao01
+export { Questao01, Questao0103 };

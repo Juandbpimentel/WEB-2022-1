@@ -1,10 +1,17 @@
 import './App.css';
-import Questao01 from './components/Questao01'
-import Questao02 from './components/Questao02'
+
+/*
+import Personagem from './components/hardcoded/Personagem';
+import Casa from './components/hardcoded/Casa';
+import Informacoes from './components/Informacoes';
+import {Questao01} from './components/Questao01'
+import {Questao02} from './components/Questao02'
 import Questao03 from './components/Questao03'
 import Questao04 from './components/Questao04'
+import IMC from './components/imc/IMC'
+*/
 
-
+import IMClasse from './components/imc/IMCClasse'
 /* Questão 01 :
 function App(){
   return(
@@ -37,17 +44,49 @@ function App(){
 }
  */
 
-///*
+/* Questão 04
 function App(){
   return(
     <div className='App'>
-
-    <Questao04/>
+      <Questao04/>
     </div>
   );
 }
-//*/
+*/
 
 
+/* Estudo Children
+function App(){
+  return(
+    <div className='App'>
+      <Pai nome='Juan' >
+        <Informacoes />
+      </Pai>
+    </div>
+  );
+}
+*/
+/*
+function App(){
+  return(
+    <div className='App'>
+      <Casa show='Game of Thrones' casa='Genérica' horario='Nobre'>
+        <Personagem nome='John Snow' />
+        <Personagem nome='Tyrion' />
+        <Personagem nome='Daeneris' />
+        <Personagem nome='George R. R. Martin' />
+      </Casa>
+    </div>
+  );
+}
+*/
+
+function App(){
+  return(
+    <div className='App'>
+      <IMClasse altura={1.62} peso={74}/>      
+    </div>
+  );
+}
 
 export default App;
