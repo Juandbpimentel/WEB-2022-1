@@ -1,6 +1,10 @@
 import './App.css';
 
 /*
+import CidadeComClasse from './components/cidades/CidadeComClasse';
+import CidadeSimples from './components/cidades/CidadeSimples';
+import Pai from './components/filhopai/Pai';
+import Filho from './components/filhopai/Filho';
 import Personagem from './components/hardcoded/Personagem';
 import Casa from './components/hardcoded/Casa';
 import Informacoes from './components/Informacoes';
@@ -9,9 +13,9 @@ import {Questao02} from './components/Questao02'
 import Questao03 from './components/Questao03'
 import Questao04 from './components/Questao04'
 import IMC from './components/imc/IMC'
+import IMClasse from './components/imc/IMCClasse'
 */
 
-import IMClasse from './components/imc/IMCClasse'
 /* Questão 01 :
 function App(){
   return(
@@ -80,11 +84,44 @@ function App(){
   );
 }
 */
+/*
+function App(){
+  return(
+    <div className='App'>
+      <IMClasse altura={1.81} peso={68}/>      
+    </div>
+  );
+}
+
+*/
+/*
 
 function App(){
   return(
     <div className='App'>
-      <IMClasse altura={1.62} peso={74}/>      
+      <Pai/>
+        
+    </div>
+  );
+}
+
+*/
+
+function teste() {
+  let a,b, rest;
+  [a,b, ...rest] = [10,20, 30,40,50];
+  return(
+    <div>
+      <h1>{a} {b} {rest}</h1>
+    </div>
+  )
+}
+
+function App(){
+  return(
+    <div className='App'>
+      {/*<CidadeComClasse/>*/ }
+      {teste()}
     </div>
   );
 }

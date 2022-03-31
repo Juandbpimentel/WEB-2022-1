@@ -6,14 +6,20 @@ class IMCClasse extends Component {
         return peso / (altura * altura)
     }
 
+    meuTitulo() {
+        return <h1>Cálculo de IMC</h1>
+    }
+
     resultado(imc) {
-        if (imc < 18.5) {
+        if (imc < 17) {
+            return 'Muito abaixo do peso'
+        } else if (imc < 18.5) {
             return 'Abaixo do peso'
-        } else if (imc >= 18.5 && imc <= 24.9) {
+        } else if (imc < 25) {
             return 'Você está saudável'
-        } else if (imc >= 25 && imc < 30) {
+        } else if (imc < 30) {
             return 'Você está acima do peso'
-        } else if (imc >= 30 && imc < 40) {
+        } else if (imc < 40) {
             return 'Você está obeso'
         } else {
             return 'Você está com obesidade grave'
@@ -26,9 +32,10 @@ class IMCClasse extends Component {
         const imc = calcularIMC(altura, peso)
         return (
             <div>
+                {this.meuTitulo()}
                 <h5>A minha altura é {altura}m e o meu peso é {peso}kg</h5>
-                <h5>O meu IMC é {calcularIMC(altura, peso)}</h5>
-                <h1>{this.resultado(calcularIMC(altura, peso))}</h1>
+                <h5>O meu IMC é {calcularIMC(altura, peso).toFixed(2)}</h5>
+                <h1>{this.resultado(imc)}</h1>
             </div>
 
         )
