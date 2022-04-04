@@ -1,4 +1,5 @@
 import './App.css';
+import CidadeComHooks from './components/hooks/CidadeComHooks';
 
 /*
 import CidadeComClasse from './components/cidades/CidadeComClasse';
@@ -107,21 +108,10 @@ function App(){
 
 */
 
-function teste() {
-  let a,b, rest;
-  [a,b, ...rest] = [10,20, 30,40,50];
-  return(
-    <div>
-      <h1>{a} {b} {rest}</h1>
-    </div>
-  )
-}
-
 function App(){
   return(
     <div className='App'>
-      {/*<CidadeComClasse/>*/ }
-      {teste()}
+      *<CidadeComHooks/> 
     </div>
   );
 }
