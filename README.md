@@ -1,4 +1,4 @@
-# Repositório De Atividades - Desenvolvimento de Software para WEB
+# Repositório De Atividades - Desenvolvimento de Software para Web
 
 ## [Atividade-01](atividade-01)
 
