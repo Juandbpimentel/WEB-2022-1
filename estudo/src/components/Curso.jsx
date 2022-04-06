@@ -1,7 +1,7 @@
-import { react } from "react";
+import { React } from "react";
 
 
-Curso = props => {
+const Curso = props => {
     return (
         <div>
             {props.children}
