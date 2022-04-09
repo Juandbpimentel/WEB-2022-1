@@ -7,9 +7,9 @@ class Arenaq4 extends Component {
                 {
                     React.Children.map(
                         this.props.children,
-                        (personagem) => {
+                        (filho) => {
                             return React.cloneElement(
-                                personagem, { arena: this.props.arena }
+                                filho, { arena: this.props.arena }
                             )
                         }
                     )

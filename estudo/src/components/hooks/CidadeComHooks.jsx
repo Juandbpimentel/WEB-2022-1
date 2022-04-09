@@ -1,4 +1,4 @@
-import { React, Component, useState, useEffect } from 'react';
+import { React, useState, useEffect } from 'react';
 
 const CidadeComHooks = (props) => {
 
@@ -36,34 +36,33 @@ const CidadeComHooks = (props) => {
             setDestaque("Empate")
     }
 
-    useEffect(() => {
-
-        if (forta > quixa) {
-            if (forta > limo) {
-                return cidadeDestaque(1);
-            } else if (forta === limo) {
-                return cidadeDestaque(0);
+    useEffect(
+        () => {
+            if (forta > quixa) {
+                if (forta > limo) {
+                    return cidadeDestaque(1);
+                } else if (forta === limo) {
+                    return cidadeDestaque(0);
+                } else {
+                    return cidadeDestaque(3);
+                }
+            } else if (quixa > limo) {
+                if (quixa === forta) {
+                    return cidadeDestaque(0);
+                } else {
+                    return cidadeDestaque(2);
+                }
+            } else if (limo > forta) {
+                if (limo === quixa) {
+                    return cidadeDestaque(0);
+                } else {
+                    return cidadeDestaque(3)
+                }
             } else {
-                return cidadeDestaque(3);
-            }
-        } else if (quixa > limo) {
-            if (quixa === forta) {
                 return cidadeDestaque(0);
-            } else {
-                return cidadeDestaque(2);
             }
-        } else if (limo > forta) {
-            if (limo === quixa) {
-                return cidadeDestaque(0);
-            } else {
-                return cidadeDestaque(3)
-            }
-        } else {
-            return cidadeDestaque(0);
-        }
-
-
-    })
+        }, [forta, quixa, limo]
+    )
 
     return (
         <div>
