@@ -6,6 +6,7 @@ function CreateStudent() {
     const [ira, setIra] = useState(0);
 
     const handleSubmit = (evt) => {
+        evt.preventDefault();
         console.log(name);
         console.log(course);
         console.log(ira);
@@ -17,7 +18,7 @@ function CreateStudent() {
             <h2>Nome: {name}</h2>
             <h2>Curso: {course}</h2>
             <h2>IRA: {ira}</h2>
-            <form action="">
+            <form action="" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="">Nome</label>
                     <input
