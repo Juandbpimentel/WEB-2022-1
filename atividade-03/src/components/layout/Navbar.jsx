@@ -3,31 +3,70 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
     return (
-        <div className="container">
-            <div className="collapse" id="navbarToggleExternalContent">
-                <div className="bg-dark p-4">
-                    <h5 className="tet-white h4">Collapsed content</h5>
-                    <span className="text-muted">
-                        Toglleable via the navbar brand
-                    </span>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div className="container-fluid">
+                <Link
+                    to="/"
+                    className="navbar-brand"
+                    style={{ paddingLeft: 20 }}
+                >
+                    UFC
+                </Link>
+                <div
+                    className="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link to="/" className="nav-link">
+                                Início
+                            </Link>
+                        </li>
+                        <li className="nav-item active">
+                            <Link to="about" className="nav-link">
+                                Sobre nós
+                            </Link>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link
+                                className="nav-link dropdown-toggle"
+                                to="/"
+                                id="navbarScrollingDropdown"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Estudantes
+                            </Link>
+                            <ul
+                                className="dropdown-menu"
+                                aria-labelledby="navbarScrollingDropdown"
+                            >
+                                <li>
+                                    <Link
+                                        className="dropdown-item"
+                                        to="createStudent"
+                                    >
+                                        Criar Estudante
+                                    </Link>
+                                </li>
+                                <li>
+                                    <hr className="dropdown-divider" />
+                                </li>
+                                <li>
+                                    <Link
+                                        className="dropdown-item"
+                                        to="listStudent"
+                                    >
+                                        Ver Estudantes
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <nav className="navbar navbar-dark bg-dark">
-                <div className="Container-fluid">
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarToggleExternalContent"
-                        aria-controls="navbarToggleExternalContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                </div>
-            </nav>
-        </div>
+        </nav>
     );
 }
 

@@ -16,45 +16,7 @@ import Navbar from './components/layout/Navbar';
 function App() {
     return (
         <div className="container">
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div className="container-fluid">
-                    <Link
-                        to="/"
-                        className="navbar-brand"
-                        style={{ paddingLeft: 20 }}
-                    >
-                        UFC
-                    </Link>
-                    <div
-                        className="collapse navbar-collapse"
-                        id="navbarSupportedContent"
-                    >
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link to="/" className="nav-link">
-                                    Home
-                                </Link>
-                            </li>
-                            <li className="nav-item active">
-                                <Link to="about" className="nav-link">
-                                    About
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="createStudent" className="nav-link">
-                                    Criar Estudante
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="listStudent" className="nav-link">
-                                    Listar Estudante
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
+            <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="about" element={<About />} />
