@@ -40,7 +40,7 @@ const Navbar = () => {
                                 Estudantes
                             </Link>
                             <ul
-                                className="dropdown-menu"
+                                className="dropdown-menu dropdown-menu-dark"
                                 aria-labelledby="dropdownStudentBtn"
                             >
                                 <li>
@@ -73,7 +73,7 @@ const Navbar = () => {
                                 Professores
                             </Link>
                             <ul
-                                className="dropdown-menu"
+                                className="dropdown-menu dropdown-menu-dark"
                                 aria-labelledby="dropdownTeacherBtn"
                             >
                                 <li>

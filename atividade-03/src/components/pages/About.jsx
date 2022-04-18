@@ -9,7 +9,7 @@ const About = () => {
             <img
                 src={NegativeBrand}
                 alt="Logo da Universidade Federal do Ceará"
-                style={{ maxHeight: 500 }}
+                style={{ maxHeight: 450 }}
             />
         </div>
     );
