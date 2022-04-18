@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-document.body.style.background = '#212529';
+document.body.style.background = '#1f1f1f';
 root.render(
     <BrowserRouter>
         <App tab="home" />

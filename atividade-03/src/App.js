@@ -16,7 +16,7 @@ import Navbar from './components/layout/Navbar';
 
 function App() {
     return (
-        <div className="container text-light bg-dark">
+        <div className="container text-light">
             <Navbar />
             <Routes>
                 <Route path="/" element={<Home />} />

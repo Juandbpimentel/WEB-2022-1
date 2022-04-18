@@ -1,19 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import horizontalBrand from '../img/horizontalbrand.png';
+import NegativeBrand from '../img/monocromatic_brand_negative.png';
 
 const Navbar = () => {
     return (
-        <nav
-            className="navbar navbar-expand-lg navbar-light "
-            style={{ background: '#d7d3db' }}
-        >
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">
                     <img
-                        src={horizontalBrand}
+                        src={NegativeBrand}
                         alt="Logomarca da ufc"
-                        style={{ maxHeight: 50 }}
+                        style={{ maxHeight: 60 }}
                     />
                 </Link>
                 <div
