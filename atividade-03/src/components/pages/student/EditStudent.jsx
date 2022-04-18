@@ -1,5 +1,5 @@
-import { useState, useEffect, React } from 'react';
-import { students } from './data';
+import { useState, React, useEffect } from 'react';
+import students from './data';
 import { useParams } from 'react-router-dom';
 
 function EditStudent() {
@@ -9,9 +9,7 @@ function EditStudent() {
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        const student = [{ name: name, course: course, ira: ira }];
-        console.log(student[params.id]);
-        alert(`Nome: ${name} \nCurso: ${course}\nIRA: ${ira}`);
+        console.log({ student: { name: name, ira: ira, course: course } });
     };
 
     const params = useParams();
@@ -26,10 +24,7 @@ function EditStudent() {
     return (
         <div>
             <h2>Editar Estudante</h2>
-            <h2>Nome: {name}</h2>
-            <h2>Curso: {course}</h2>
-            <h2>IRA: {ira}</h2>
-            <form onSubmit={handleSubmit}>
+            <form action="" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="">Nome</label>
                     <input
@@ -60,11 +55,14 @@ function EditStudent() {
                         className="form-control"
                     />
                 </div>
-                <div className="form-group" style={{ paddingTop: 10 }}>
+                <div
+                    className="form-group"
+                    style={{ paddingTop: 20, paddingBottom: 20 }}
+                >
                     <input
                         type="submit"
                         value="Editar Estudante"
-                        className="btn btn-primary"
+                        className="btn btn-light"
                     />
                 </div>
             </form>

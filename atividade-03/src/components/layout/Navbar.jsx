@@ -1,37 +1,41 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import horizontalBrand from '../img/horizontalbrand.png';
 
-function Navbar() {
+const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav
+            className="navbar navbar-expand-lg navbar-light "
+            style={{ background: '#d7d3db' }}
+        >
             <div className="container-fluid">
-                <Link
-                    to="/"
-                    className="navbar-brand"
-                    style={{ paddingLeft: 20 }}
-                >
-                    UFC
+                <Link to="/" className="navbar-brand">
+                    <img
+                        src={horizontalBrand}
+                        alt="Logomarca da ufc"
+                        style={{ maxHeight: 50 }}
+                    />
                 </Link>
                 <div
                     className="collapse navbar-collapse"
                     id="navbarSupportedContent"
                 >
                     <ul className="navbar-nav">
-                        <li className="nav-item">
+                        <li className="nav-item active">
                             <Link to="/" className="nav-link">
                                 Início
                             </Link>
                         </li>
-                        <li className="nav-item active">
+                        <li className="nav-item">
                             <Link to="about" className="nav-link">
-                                Sobre nós
+                                Sobre Nós
                             </Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link
-                                className="nav-link dropdown-toggle"
                                 to="/"
-                                id="navbarScrollingDropdown"
+                                className="nav-link dropdown-toggle"
+                                id="dropdownStudentBtn"
                                 role="button"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
@@ -40,25 +44,55 @@ function Navbar() {
                             </Link>
                             <ul
                                 className="dropdown-menu"
-                                aria-labelledby="navbarScrollingDropdown"
+                                aria-labelledby="dropdownStudentBtn"
                             >
                                 <li>
                                     <Link
-                                        className="dropdown-item"
+                                        className="nav-item dropdown-item"
                                         to="createStudent"
                                     >
                                         Criar Estudante
                                     </Link>
                                 </li>
                                 <li>
-                                    <hr className="dropdown-divider" />
+                                    <Link
+                                        className="nav-item dropdown-item"
+                                        to="listStudents"
+                                    >
+                                        Ver Estudantes
+                                    </Link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <Link
+                                to="/"
+                                className="nav-link dropdown-toggle"
+                                id="dropdownTeacherBtn"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Professores
+                            </Link>
+                            <ul
+                                className="dropdown-menu"
+                                aria-labelledby="dropdownTeacherBtn"
+                            >
+                                <li>
+                                    <Link
+                                        to="createTeacher"
+                                        className="dropdown-item"
+                                    >
+                                        Criar Professor
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link
+                                        to="listTeachers"
                                         className="dropdown-item"
-                                        to="listStudent"
                                     >
-                                        Ver Estudantes
+                                        Ver Professores
                                     </Link>
                                 </li>
                             </ul>
@@ -68,6 +102,5 @@ function Navbar() {
             </div>
         </nav>
     );
-}
-
+};
 export default Navbar;

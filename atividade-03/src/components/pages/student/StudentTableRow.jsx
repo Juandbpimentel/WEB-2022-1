@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function StudentTableRow({ student: { id, name, course, ira }, key }) {
+function StudentTableRow({ student: { id, name, course, ira } }) {
     return (
         <tr>
             <td>{id}</td>
@@ -19,5 +19,4 @@ function StudentTableRow({ student: { id, name, course, ira }, key }) {
         </tr>
     );
 }
-
 export default StudentTableRow;
