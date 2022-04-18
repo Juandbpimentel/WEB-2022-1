@@ -1,23 +1,29 @@
-import { useState, React } from 'react';
+import { useState, React, useEffect } from 'react';
+import students from './data';
+import { useParams } from 'react-router-dom';
 
-function CreateStudent() {
+function EditStudent() {
     const [name, setName] = useState('');
     const [course, setCourse] = useState('');
     const [ira, setIra] = useState(0);
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(name);
-        console.log(course);
-        console.log(ira);
+        console.log({ student: { name: name, ira: ira, course: course } });
     };
+
+    const params = useParams();
+
+    useEffect(() => {
+        const student = students[params.id];
+        setName(student.name);
+        setCourse(student.course);
+        setIra(student.ira);
+    }, [params.id]);
 
     return (
         <div>
-            <h2>Criar Estudante</h2>
-            <h2>Nome: {name}</h2>
-            <h2>Curso: {course}</h2>
-            <h2>IRA: {ira}</h2>
+            <h2>Editar Estudante</h2>
             <form action="" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="">Nome</label>
@@ -49,11 +55,14 @@ function CreateStudent() {
                         className="form-control"
                     />
                 </div>
-                <div className="form-group" style={{ paddingTop: 10 }}>
+                <div
+                    className="form-group"
+                    style={{ paddingTop: 20, paddingBottom: 20 }}
+                >
                     <input
                         type="submit"
-                        value="Criar Estudante"
-                        className="btn btn-primary"
+                        value="Editar Estudante"
+                        className="btn btn-light"
                     />
                 </div>
             </form>
@@ -61,4 +70,4 @@ function CreateStudent() {
     );
 }
 
-export default CreateStudent;
+export default EditStudent;
