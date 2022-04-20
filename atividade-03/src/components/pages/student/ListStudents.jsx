@@ -14,14 +14,25 @@ const ListStudents = () => {
     return (
         <div>
             <h4>Estudantes</h4>
-            <table className="table table-striped text-light" style={{ marginTop: 20 }}>
+            <table
+                className="table table-striped table-dark"
+                style={{ marginTop: 20 }}
+            >
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Curso</th>
                         <th>IRA</th>
-                        <th colSpan="2">Ações</th>
+                        <th
+                            colSpan="2"
+                            style={{
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            Ações
+                        </th>
                     </tr>
                 </thead>
                 <tbody>{generateTable()}</tbody>

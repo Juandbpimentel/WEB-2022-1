@@ -25,14 +25,13 @@ const CreateTeacher = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log({
-            teacher: {
-                name: name,
-                salary: salary,
-                admissionDate: admissionDate,
-                teachingArea: teachingArea,
-            },
-        });
+        const teacher = {
+            name: name,
+            salary: salary,
+            admissionDate: admissionDate,
+            teachingArea: teachingArea,
+        };
+        console.log(teacher);
     }
 
     return (

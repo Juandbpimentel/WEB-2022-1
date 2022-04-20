@@ -14,7 +14,10 @@ const ListTeachers = () => {
     return (
         <div>
             <h4>Professores</h4>
-            <table className="table table-striped text-light" style={{ marginTop: 20 }}>
+            <table
+                className="table table-striped table-dark"
+                style={{ marginTop: 20 }}
+            >
                 <thead>
                     <tr>
                         <td>ID</td>

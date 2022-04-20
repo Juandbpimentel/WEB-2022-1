@@ -21,6 +21,7 @@ const CreateStudent = () => {
     function handleSubmit(e) {
         e.preventDefault();
         console.log({ student: { name: name, ira: ira, course: course } });
+        axios
     }
 
     return (
