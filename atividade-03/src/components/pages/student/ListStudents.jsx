@@ -14,7 +14,7 @@ const ListStudents = () => {
     return (
         <div>
             <h4>Estudantes</h4>
-            <table className="table table-strict text-light">
+            <table className=""table table-striped" text-light">
                 <thead>
                     <tr>
                         <th>ID</th>
