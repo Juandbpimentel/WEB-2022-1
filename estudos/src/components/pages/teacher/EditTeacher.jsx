@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import teachers from './data';
+import axios from 'axios';
 
 const CreateTeacher = () => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState(0);
     const [admissionDate, setAdmissionDate] = useState('');
     const [teachingArea, setTeachingArea] = useState('');
+    const params = useParams();
 
     function handleChangeName(evt) {
         setName(evt.target.value);
@@ -27,24 +28,36 @@ const CreateTeacher = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log({
-            teacher: {
-                name: name,
-                salary: salary,
-                admissionDate: admissionDate,
-                teachingArea: teachingArea,
-            },
-        });
+        const updateTeacher = {
+            name,
+            salary,
+            admissionDate,
+            teachingArea,
+        };
+        axios
+            .patch(`http://localhost:3002/teachers/${params.id}`, updateTeacher)
+            .then((resp) => {
+                console.log(
+                    `O professor de id:${resp.data.id} foi editado com sucesso!`
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
-    const params = useParams();
-
     useEffect(() => {
-        const teacher = teachers[params.id];
-        setName(teacher.name);
-        setSalary(teacher.salary);
-        setTeachingArea(teacher.teachingArea);
-        setAdmissionDate(teacher.admissionDate);
+        axios
+            .get(`http://localhost:3002/teachers/${params.id}`)
+            .then((resp) => {
+                setAdmissionDate(resp.data.admissionDate);
+                setSalary(resp.data.salary);
+                setName(resp.data.name);
+                setTeachingArea(resp.data.teachingArea);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }, [params.id]);
 
     return (

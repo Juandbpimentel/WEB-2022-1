@@ -1,13 +1,41 @@
-import React from 'react';
-import teachers from './data';
-
+import React, { useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import TeacherTableRow from './TeacherTableRow';
 
 const ListTeachers = () => {
+    const [teachers, setTeachers] = useState([]);
+
+    const prev = useRef();
+
+    useEffect(() => {
+        if (prev.current === teachers) return;
+        prev.current = teachers;
+        axios
+            .get('http://localhost:3002/teachers')
+            .then((resp) => setTeachers(resp.data))
+            .catch((err) => console.log(err));
+    }, [teachers.length]);
+
+    function deleteTeacherById(id) {
+        console.log('delete');
+        let teachersTemp = teachers;
+        for (let i = 0; i < teachersTemp.length; i++) {
+            if (teachersTemp[i].id === id) teachersTemp.splice(i, 1);
+        }
+        setTeachers(teachersTemp);
+        console.log('deleteSuccess');
+    }
+
     function generateTable() {
         if (!teachers) return;
         return teachers.map((teacher, i) => {
-            return <TeacherTableRow teacher={teacher} key={i} />;
+            return (
+                <TeacherTableRow
+                    teacher={teacher}
+                    key={i}
+                    deleteTeacherById={deleteTeacherById}
+                />
+            );
         });
     }
 
@@ -25,7 +53,9 @@ const ListTeachers = () => {
                         <td>Salário</td>
                         <td>Data de Admissão</td>
                         <td>Área de Ensino</td>
-                        <th colSpan="2">Ações</th>
+                        <th colSpan="2" style={{ textAlign: 'center' }}>
+                            Ações
+                        </th>
                     </tr>
                 </thead>
                 <tbody>{generateTable()}</tbody>

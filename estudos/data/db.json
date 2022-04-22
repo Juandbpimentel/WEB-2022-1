@@ -1,0 +1,24 @@
+{
+  "teachers": [],
+  "students": [
+    {
+      "id": 2,
+      "name": "Ítalo",
+      "course": "Engenharia de Computação",
+      "ira": 10
+    },
+    {
+      "name": "Juan David Bizerra Pimentel",
+      "ira": "7",
+      "course": "Engenharia de Computação",
+      "id": 3
+    },
+    {
+      "name": "Sarah Pimentel",
+      "ira": "10",
+      "course": "Sistemas De Informação ^-^",
+      "id": 4
+    }
+  ],
+  "classes": []
+}

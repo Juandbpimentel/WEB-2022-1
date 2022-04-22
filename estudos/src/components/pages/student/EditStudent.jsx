@@ -1,24 +1,44 @@
 import { useState, React, useEffect } from 'react';
-import students from './data';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-function EditStudent() {
+function EditStudent(props) {
     const [name, setName] = useState('');
     const [course, setCourse] = useState('');
     const [ira, setIra] = useState(0);
+    const params = useParams();
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log({ student: { name: name, ira: ira, course: course } });
+        const updatedStudent = {
+            name,
+            course,
+            ira,
+        };
+        axios
+            .patch(
+                `http://localhost:3002/students/${params.id}`,
+                updatedStudent
+            )
+            .then((resp) => {
+                //console.log(resp.data);
+                console.log(
+                    `Estudante de id:${resp.data.id} foi editado com sucesso!`
+                );
+            })
+            .catch((err) => console.log(err));
     };
 
-    const params = useParams();
-
     useEffect(() => {
-        const student = students[params.id];
-        setName(student.name);
-        setCourse(student.course);
-        setIra(student.ira);
+        axios
+            .get(`http://localhost:3002/students/${params.id}`)
+            .then((resp) => {
+                setName(resp.data.name);
+                setCourse(resp.data.course);
+                setIra(resp.data.ira);
+            })
+            .catch((err) => console.log(err));
+        //console.log({ name, ira, course });
     }, [params.id]);
 
     return (

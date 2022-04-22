@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 const CreateStudent = () => {
     const [name, setName] = useState('');
@@ -20,7 +21,16 @@ const CreateStudent = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log({ student: { name: name, ira: ira, course: course } });
+        const student = { name: name, ira: ira, course: course };
+        //console.log(student);
+        axios
+            .post('http://localhost:3002/students', student)
+            .then((resp) => {
+                console.log(
+                    `Aluno de id ${resp.data.id} cadastrado com sucesso!`
+                );
+            })
+            .catch((err) => console.log(err));
     }
 
     return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 const CreateTeacher = () => {
     const [name, setName] = useState('');
@@ -31,7 +32,15 @@ const CreateTeacher = () => {
             admissionDate: admissionDate,
             teachingArea: teachingArea,
         };
-        console.log(teacher);
+        //console.log(teacher);
+        axios
+            .post('http://localhost:3002/teachers', teacher)
+            .then((resp) => {
+                console.log(
+                    `Professor de id ${resp.data.id} cadastrado com sucesso!`
+                );
+            })
+            .catch((err) => console.log(err));
     }
 
     return (
