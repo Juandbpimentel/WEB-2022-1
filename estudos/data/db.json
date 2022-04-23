@@ -1,44 +1,44 @@
 {
-  "teachers": [
-    {
-      "id": 0,
-      "name": "Samy",
-      "salary": "10000",
-      "admissionDate": "2001-10-09",
-      "teachingArea": "Matemática Discreta"
-    }
-  ],
-  "students": [
-    {
-      "id": 0,
-      "name": "Yuumi",
-      "course": "Engenharia de Software",
-      "ira": 6.7
-    },
-    {
-      "id": 1,
-      "name": "Petrucio Neves",
-      "course": "Engenharia de computação",
-      "ira": 9.9
-    },
-    {
-      "id": 2,
-      "name": "Ítalo",
-      "course": "Engenharia de Computação",
-      "ira": 10
-    },
-    {
-      "name": "Juan David Bizerra Pimentel",
-      "ira": "7",
-      "course": "Engenharia de Computação",
-      "id": 3
-    },
-    {
-      "name": "Sarah Pimentel",
-      "ira": "10",
-      "course": "Sistemas De Informação ^-^",
-      "id": 4
-    }
-  ],
-  "classes": []
+    "teachers": [
+        {
+            "name": "Fulano 0",
+            "salary": "10000",
+            "admissionDate": "2022-04-30",
+            "teachingArea": "IoT",
+            "id": 0
+        }
+    ],
+    "students": [
+        {
+            "id": 0,
+            "name": "Yuumi",
+            "course": "Engenharia de Software",
+            "ira": 6.7
+        },
+        {
+            "id": 1,
+            "name": "Petrucio Neves",
+            "course": "Engenharia de computação",
+            "ira": 9.9
+        },
+        {
+            "id": 2,
+            "name": "Ítalo",
+            "course": "Engenharia de Computação",
+            "ira": 10
+        },
+        {
+            "name": "Juan David Bizerra Pimentel",
+            "ira": "7",
+            "course": "Engenharia de Computação",
+            "id": 3
+        },
+        {
+            "name": "Sarah Pimentel",
+            "ira": "10",
+            "course": "Sistemas De Informação ^-^",
+            "id": 4
+        }
+    ],
+    "classes": []
 }

@@ -4,33 +4,23 @@ import TeacherTableRow from './TeacherTableRow';
 
 const ListTeachers = () => {
     const [teachers, setTeachers] = useState([]);
-    const [teachersPrev, setTeachersPrev] = useState();
-    useEffect(() => {
-        console.log(prev.current);
-        console.log(teachers);
-        if (prev.current === teachers) return;
-        else {
-            prev.current = teachers;
-            console.log(prev.current);
-            console.log(teachers);
-            axios
-                .get('http://localhost:3002/teachers')
-                .then((resp) => setTeachers(resp.data))
-                .catch((err) => console.log(err));
-        }
-    }, [prev.current]);
+    const prev = useRef();
 
-    function deleteTeacherById(id) {
-        let teachersTemp = teachers;
-        for (let i = 0; i < teachersTemp.length; i++) {
-            if (teachersTemp[i].id === id) {
-                teachersTemp.splice(i, 1);
-            }
-        }
-        setTeachers(teachersTemp);
-        prev.current = teachers;
-        console.log('deleteSuccess');
-    }
+    useEffect(() => {
+        if (prev.current === teachers) return;
+        axios
+            .get('http://localhost:3002/teachers')
+            .then((resp) => {
+                prev.current = resp.data;
+                setTeachers(resp.data);
+            })
+            .catch((err) => console.log(err));
+    }, [teachers]);
+
+    const deleteTeacherById = (id) => {
+        setTeachers(teachers.filter((teacher) => teacher.id !== id));
+        console.log('deleteUpdateSuccess');
+    };
 
     function generateTable() {
         if (!teachers) return;

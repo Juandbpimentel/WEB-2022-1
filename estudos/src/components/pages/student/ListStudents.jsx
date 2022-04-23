@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import StudentTableRow from './StudentTableRow';
-import { Link } from 'react-router-dom';
 
 const ListStudents = () => {
     const [students, setStudents] = useState([]);
@@ -9,12 +8,19 @@ const ListStudents = () => {
 
     useEffect(() => {
         if (prev.current === students) return;
-        prev.current = students;
         axios
             .get('http://localhost:3002/students')
-            .then((resp) => setStudents(resp.data))
+            .then((resp) => {
+                prev.current = resp.data;
+                setStudents(resp.data);
+            })
             .catch((err) => console.log(err));
-    }, []);
+    }, [students]);
+
+    function deleteStudentById(id) {
+        setStudents(students.filter((student) => student.id !== id));
+        console.log('deleteUpdateSuccess');
+    }
 
     function generateTable() {
         if (!students) return;
@@ -27,17 +33,6 @@ const ListStudents = () => {
                 />
             );
         });
-    }
-
-    function deleteStudentById(id) {
-        let studentsTemp = students;
-        for (let i = 0; i < studentsTemp.length; i++)
-            if (studentsTemp[i].id === id) {
-                studentsTemp.splice(i, 1);
-            }
-        console.log(studentsTemp);
-        setStudents(studentsTemp);
-        console.log(students);
     }
 
     return (
