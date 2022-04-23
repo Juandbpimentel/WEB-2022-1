@@ -1,6 +1,26 @@
 {
-  "teachers": [],
+  "teachers": [
+    {
+      "id": 0,
+      "name": "Samy",
+      "salary": "10000",
+      "admissionDate": "2001-10-09",
+      "teachingArea": "Matemática Discreta"
+    }
+  ],
   "students": [
+    {
+      "id": 0,
+      "name": "Yuumi",
+      "course": "Engenharia de Software",
+      "ira": 6.7
+    },
+    {
+      "id": 1,
+      "name": "Petrucio Neves",
+      "course": "Engenharia de computação",
+      "ira": 9.9
+    },
     {
       "id": 2,
       "name": "Ítalo",

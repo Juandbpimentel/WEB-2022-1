@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import StudentTableRow from './StudentTableRow';
+import { Link } from 'react-router-dom';
 
 const ListStudents = () => {
     const [students, setStudents] = useState([]);
-
     const prev = useRef();
+
     useEffect(() => {
         if (prev.current === students) return;
         prev.current = students;
@@ -13,7 +14,7 @@ const ListStudents = () => {
             .get('http://localhost:3002/students')
             .then((resp) => setStudents(resp.data))
             .catch((err) => console.log(err));
-    }, [students.length]);
+    }, []);
 
     function generateTable() {
         if (!students) return;
@@ -34,30 +35,34 @@ const ListStudents = () => {
             if (studentsTemp[i].id === id) {
                 studentsTemp.splice(i, 1);
             }
+        console.log(studentsTemp);
         setStudents(studentsTemp);
+        console.log(students);
     }
 
     return (
-        <div>
-            <h4>Estudantes</h4>
-            <table
-                className="table table-striped table-dark"
-                style={{ marginTop: 20 }}
-            >
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Curso</th>
-                        <th>IRA</th>
-                        <th colSpan="2" style={{ textAlign: 'center' }}>
-                            Ações
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>{generateTable()}</tbody>
-            </table>
-        </div>
+        <>
+            <main>
+                <h4>Estudantes</h4>
+                <table
+                    className="table table-striped table-dark"
+                    style={{ marginTop: 20 }}
+                >
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Curso</th>
+                            <th>IRA</th>
+                            <th colSpan="2" style={{ textAlign: 'center' }}>
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>{generateTable()}</tbody>
+                </table>
+            </main>
+        </>
     );
 };
 export default ListStudents;
