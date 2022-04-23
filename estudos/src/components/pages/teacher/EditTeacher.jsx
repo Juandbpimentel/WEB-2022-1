@@ -6,8 +6,8 @@ import axios from 'axios';
 const CreateTeacher = () => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState(0);
-    const [admissionDate, setAdmissionDate] = useState('');
-    const [teachingArea, setTeachingArea] = useState('');
+    const [university, setUniversity] = useState('');
+    const [degree, setDegree] = useState('');
     const params = useParams();
 
     function handleChangeName(evt) {
@@ -18,12 +18,12 @@ const CreateTeacher = () => {
         setSalary(evt.target.value);
     }
 
-    function handleChangeAdmissionDate(evt) {
-        setAdmissionDate(evt.target.value);
+    function handleChangeuniversity(evt) {
+        setUniversity(evt.target.value);
     }
 
-    function handleChangeTeachingArea(evt) {
-        setTeachingArea(evt.target.value);
+    function handleChangedegree(evt) {
+        setDegree(evt.target.value);
     }
 
     function handleSubmit(e) {
@@ -31,8 +31,8 @@ const CreateTeacher = () => {
         const updateTeacher = {
             name,
             salary,
-            admissionDate,
-            teachingArea,
+            university,
+            degree,
         };
         axios
             .patch(`http://localhost:3002/teachers/${params.id}`, updateTeacher)
@@ -50,10 +50,10 @@ const CreateTeacher = () => {
         axios
             .get(`http://localhost:3002/teachers/${params.id}`)
             .then((resp) => {
-                setAdmissionDate(resp.data.admissionDate);
+                setUniversity(resp.data.university);
                 setSalary(resp.data.salary);
                 setName(resp.data.name);
-                setTeachingArea(resp.data.teachingArea);
+                setDegree(resp.data.degree);
             })
             .catch((err) => {
                 console.log(err);
@@ -87,24 +87,24 @@ const CreateTeacher = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="">Data de Admissão</label>
+                    <label htmlFor="">Universidade</label>
                     <input
-                        type="date"
-                        value={admissionDate ?? ''}
-                        placeholder="Digite qual foi sua data de adimissão"
-                        name="admissionDate"
-                        onChange={handleChangeAdmissionDate}
+                        type="text"
+                        value={university ?? ''}
+                        placeholder="Digite qual foi é a faculdade de formação do professor"
+                        name="university"
+                        onChange={handleChangeuniversity}
                         className="form-control"
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="">Área de Ensino</label>
+                    <label htmlFor="">Área de formação</label>
                     <input
                         type="text"
-                        value={teachingArea ?? ''}
-                        placeholder="Digite qual é sua área de ensino"
-                        name="teachingArea"
-                        onChange={handleChangeTeachingArea}
+                        value={degree ?? ''}
+                        placeholder="Digite qual é sua área de formação"
+                        name="degree"
+                        onChange={handleChangedegree}
                         className="form-control"
                     />
                 </div>

@@ -47,8 +47,8 @@ const ListTeachers = () => {
                         <td>ID</td>
                         <td>Nome</td>
                         <td>Salário</td>
-                        <td>Data de Admissão</td>
-                        <td>Área de Ensino</td>
+                        <td>Universidade</td>
+                        <td>Área de formação</td>
                         <th colSpan="2" style={{ textAlign: 'center' }}>
                             Ações
                         </th>

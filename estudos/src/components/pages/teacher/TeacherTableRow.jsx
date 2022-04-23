@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function TeacherTableRow(props) {
-    const { id, name, salary, admissionDate, teachingArea } = props.teacher;
+    const { id, name, salary, university, degree } = props.teacher;
 
     function deleteTeacher() {
         axios
@@ -17,10 +17,10 @@ function TeacherTableRow(props) {
     /*
         const [data, setData] = useState('');
         useEffect(() => {
-            let rawData = new Date(admissionDate);
+            let rawData = new Date(university);
             let string = `${rawData.getDate()}/${rawData.getMonth()}/${rawData.getFullYear()}`;
             setData(string);
-        }, [admissionDate]);
+        }, [university]);
     */
 
     return (
@@ -28,8 +28,8 @@ function TeacherTableRow(props) {
             <td>{id}</td>
             <td>{name}</td>
             <td>{salary}</td>
-            <td>{admissionDate}</td>
-            <td>{teachingArea}</td>
+            <td>{university}</td>
+            <td>{degree}</td>
             <td>
                 <Link to={`/editTeacher/${id}`} className="btn btn-warning">
                     Editar

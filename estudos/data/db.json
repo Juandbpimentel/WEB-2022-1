@@ -1,11 +1,25 @@
 {
     "teachers": [
         {
-            "name": "Fulano 0",
-            "salary": "10000",
-            "admissionDate": "2022-04-30",
-            "teachingArea": "IoT",
+            "name": "Fulano",
+            "salary": "30000",
+            "university": "PUC-Rio de Janeiro",
+            "degree": "Matemática e lógica",
             "id": 0
+        },
+        {
+            "name": "Ciclano",
+            "salary": "20000",
+            "university": "Universidade Federal do Ceará",
+            "degree": "Programação para embarcados e IoT",
+            "id": 1
+        },
+        {
+            "name": "Beltrano",
+            "salary": "10000",
+            "university": "USP",
+            "degree": "Inteligência artificial e Otimização de Algoritmos",
+            "id": 1
         }
     ],
     "students": [
