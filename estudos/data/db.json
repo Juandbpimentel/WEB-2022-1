@@ -5,38 +5,38 @@
             "salary": "30000",
             "university": "PUC-Rio de Janeiro",
             "degree": "Matemática e lógica",
-            "id": 0
+            "_id": 0
         },
         {
             "name": "Ciclano",
             "salary": "20000",
             "university": "Universidade Federal do Ceará",
             "degree": "Programação para embarcados e IoT",
-            "id": 1
+            "_id": 1
         },
         {
             "name": "Beltrano",
             "salary": "10000",
             "university": "USP",
             "degree": "Inteligência artificial e Otimização de Algoritmos",
-            "id": 1
+            "_id": 2
         }
     ],
     "students": [
         {
-            "id": 0,
+            "_id": 0,
             "name": "Yuumi",
             "course": "Engenharia de Software",
-            "ira": 6.7
+            "ira": "6.5"
         },
         {
-            "id": 1,
+            "_id": 1,
             "name": "Petrucio Neves",
             "course": "Engenharia de computação",
             "ira": 9.9
         },
         {
-            "id": 2,
+            "_id": 2,
             "name": "Ítalo",
             "course": "Engenharia de Computação",
             "ira": 10
@@ -45,13 +45,19 @@
             "name": "Juan David Bizerra Pimentel",
             "ira": "7",
             "course": "Engenharia de Computação",
-            "id": 3
+            "_id": 3
         },
         {
             "name": "Sarah Pimentel",
             "ira": "10",
             "course": "Sistemas De Informação ^-^",
-            "id": 4
+            "_id": 4
+        },
+        {
+            "name": "Juan",
+            "ira": "10",
+            "course": "Engenharia de Computação",
+            "_id": 5
         }
     ],
     "classes": []

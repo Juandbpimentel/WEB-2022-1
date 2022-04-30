@@ -1,11 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const CreateStudent = () => {
     const [name, setName] = useState('');
     const [ira, setIra] = useState(0);
     const [course, setCourse] = useState('');
+
+    const navigate = useNavigate();
 
     function handleChangeName(evt) {
         setName(evt.target.value);
@@ -24,11 +27,11 @@ const CreateStudent = () => {
         const student = { name: name, ira: ira, course: course };
         //console.log(student);
         axios
-            .post('http://localhost:3002/students', student)
+            .post('http://localhost:3002/crud/students/create', student)
             .then((resp) => {
-                console.log(
-                    `Aluno de id ${resp.data.id} cadastrado com sucesso!`
-                );
+                navigate('/students', {
+                    message: `Cadastro bem sucedido!`,
+                });
             })
             .catch((err) => console.log(err));
     }

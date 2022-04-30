@@ -24,11 +24,11 @@ function App() {
 
                 <Route path="createStudent" element={<CreateStudent />} />
                 <Route path="students" element={<ListStudents />} />
-                <Route path="/editStudent/:id" element={<EditStudent />} />
+                <Route path="/editStudent/:_id" element={<EditStudent />} />
 
                 <Route path="createTeacher" element={<CreateTeacher />} />
                 <Route path="teachers" element={<ListTeachers />} />
-                <Route path="/editTeacher/:id" element={<EditTeacher />} />
+                <Route path="/editTeacher/:_id" element={<EditTeacher />} />
             </Routes>
         </div>
     );

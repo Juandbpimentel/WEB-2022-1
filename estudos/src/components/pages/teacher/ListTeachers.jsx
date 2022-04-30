@@ -9,7 +9,7 @@ const ListTeachers = () => {
     useEffect(() => {
         if (prev.current === teachers) return;
         axios
-            .get('http://localhost:3002/teachers')
+            .get('http://localhost:3001/teachers')
             .then((resp) => {
                 prev.current = resp.data;
                 setTeachers(resp.data);
@@ -17,8 +17,8 @@ const ListTeachers = () => {
             .catch((err) => console.log(err));
     }, [teachers]);
 
-    const deleteTeacherById = (id) => {
-        setTeachers(teachers.filter((teacher) => teacher.id !== id));
+    const deleteTeacherById = (_id) => {
+        setTeachers(teachers.filter((teacher) => teacher._id !== _id));
         console.log('deleteUpdateSuccess');
     };
 

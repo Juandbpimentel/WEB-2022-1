@@ -4,7 +4,7 @@ import NegativeBrand from '../img/monocromatic_brand_negative.png';
 
 const Navbar = () => {
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-auto">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand">
                     <img

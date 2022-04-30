@@ -1,12 +1,14 @@
 import { useState, React, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function EditStudent(props) {
     const [name, setName] = useState('');
     const [course, setCourse] = useState('');
     const [ira, setIra] = useState(0);
     const params = useParams();
+
+    const navigate = useNavigate();
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -17,21 +19,20 @@ function EditStudent(props) {
         };
         axios
             .patch(
-                `http://localhost:3002/students/${params.id}`,
+                `http://localhost:3002/crud/students/update/${params._id}`,
                 updatedStudent
             )
             .then((resp) => {
-                //console.log(resp.data);
-                console.log(
-                    `Estudante de id:${resp.data.id} foi editado com sucesso!`
-                );
+                navigate('/students', {
+                    message: `Estudante editado com sucesso!`,
+                });
             })
             .catch((err) => console.log(err));
     };
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3002/students/${params.id}`)
+            .get(`http://localhost:3002/crud/students/retrieve/${params._id}`)
             .then((resp) => {
                 setName(resp.data.name);
                 setCourse(resp.data.course);
@@ -39,7 +40,7 @@ function EditStudent(props) {
             })
             .catch((err) => console.log(err));
         //console.log({ name, ira, course });
-    }, [params.id]);
+    }, [params._id]);
 
     return (
         <div>

@@ -1,15 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import StudentTableRow from './StudentTableRow';
+import ScrollAreaDemo from '../../layout/ScrollAreaDemo';
+import './styles.css';
 
 const ListStudents = () => {
     const [students, setStudents] = useState([]);
+    const [message, setMessage] = useState('');
+    const [type, setType] = useState('success');
     const prev = useRef();
 
     useEffect(() => {
         if (prev.current === students) return;
         axios
-            .get('http://localhost:3002/students')
+            .get('http://localhost:3002/crud/students/list')
             .then((resp) => {
                 prev.current = resp.data;
                 setStudents(resp.data);
@@ -17,8 +21,8 @@ const ListStudents = () => {
             .catch((err) => console.log(err));
     }, [students]);
 
-    function deleteStudentById(id) {
-        setStudents(students.filter((student) => student.id !== id));
+    function deleteStudentById(_id) {
+        setStudents(students.filter((student) => student._id !== _id));
         console.log('deleteUpdateSuccess');
     }
 
@@ -35,27 +39,43 @@ const ListStudents = () => {
         });
     }
 
+    //<ScrollAreaDemo size={10}></ScrollAreaDemo>
     return (
         <>
             <main>
                 <h4>Estudantes</h4>
-                <table
-                    className="table table-striped table-dark"
-                    style={{ marginTop: 20 }}
-                >
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Curso</th>
-                            <th>IRA</th>
-                            <th colSpan="2" style={{ textAlign: 'center' }}>
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>{generateTable()}</tbody>
-                </table>
+                <div id="table-wrapper">
+                    <div id="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span className="text_id">ID</span>
+                                    </th>
+                                    <th>
+                                        <span className="text_name">Nome</span>
+                                    </th>
+                                    <th>
+                                        <span className="text_course">
+                                            Curso
+                                        </span>
+                                    </th>
+                                    <th>
+                                        <span className="text_ira">IRA</span>
+                                    </th>
+                                    <th colSpan="2">
+                                        <span className="text_action">
+                                            Ações
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style={{ marginTop: '10px' }}>
+                                {generateTable()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </main>
         </>
     );

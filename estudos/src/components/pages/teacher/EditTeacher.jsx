@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const CreateTeacher = () => {
@@ -9,6 +9,7 @@ const CreateTeacher = () => {
     const [university, setUniversity] = useState('');
     const [degree, setDegree] = useState('');
     const params = useParams();
+    const navigate = useNavigate();
 
     function handleChangeName(evt) {
         setName(evt.target.value);
@@ -35,10 +36,15 @@ const CreateTeacher = () => {
             degree,
         };
         axios
-            .patch(`http://localhost:3002/teachers/${params.id}`, updateTeacher)
+            .patch(
+                `http://localhost:3001/teachers/${params._id}`,
+                updateTeacher
+            )
             .then((resp) => {
                 console.log(
-                    `O professor de id:${resp.data.id} foi editado com sucesso!`
+                    navigate('/teachers', {
+                        message: `Professor editado com sucesso!`,
+                    })
                 );
             })
             .catch((err) => {
@@ -48,7 +54,7 @@ const CreateTeacher = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3002/teachers/${params.id}`)
+            .get(`http://localhost:3001/teachers/${params._id}`)
             .then((resp) => {
                 setUniversity(resp.data.university);
                 setSalary(resp.data.salary);
@@ -58,7 +64,7 @@ const CreateTeacher = () => {
             .catch((err) => {
                 console.log(err);
             });
-    }, [params.id]);
+    }, [params._id]);
 
     return (
         <div>

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CreateTeacher = () => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState(0);
     const [university, setUniversity] = useState('');
     const [degree, setDegree] = useState('');
+    const navigate = useNavigate();
 
     function handleChangeName(evt) {
         setName(evt.target.value);
@@ -34,10 +36,12 @@ const CreateTeacher = () => {
         };
         //console.log(teacher);
         axios
-            .post('http://localhost:3002/teachers', teacher)
+            .post('http://localhost:3001/teachers', teacher)
             .then((resp) => {
                 console.log(
-                    `Professor de id ${resp.data.id} cadastrado com sucesso!`
+                    navigate('teachers', {
+                        message: `Cadastrado bem sucedido!`,
+                    })
                 );
             })
             .catch((err) => console.log(err));

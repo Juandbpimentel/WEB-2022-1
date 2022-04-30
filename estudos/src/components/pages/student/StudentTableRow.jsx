@@ -2,33 +2,46 @@ import axios from 'axios';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import './styles.css';
+
 function StudentTableRow({
-    student: { id, name, course, ira },
+    student: { _id, name, course, ira },
     deleteStudentById,
 }) {
     function deleteStudent() {
         axios
-            .delete(`http://localhost:3002/students/${id}`)
+            .delete(`http://localhost:3002/crud/students/delete/${_id}`)
             .then(() => {
-                deleteStudentById(id);
+                deleteStudentById(_id);
                 console.log(
-                    `Registro do aluno de id:${id} foi apagado com sucessso!`
+                    `Registro do aluno de id:${_id} foi apagado com sucessso!`
                 );
             })
             .catch((err) => console.log(err));
     }
     return (
         <tr>
-            <td>{id}</td>
-            <td>{name}</td>
-            <td>{course}</td>
-            <td>{ira}</td>
+            <td className="row_id">
+                <span>{_id}</span>
+            </td>
             <td>
-                <Link to={`/editStudent/${id}`} className="btn btn-warning">
+                <span className="row_name">{name}</span>
+            </td>
+            <td className="text-center">
+                <span>{course}</span>
+            </td>
+            <td className="text-center">
+                <span>{ira}</span>
+            </td>
+            <td className="text-center">
+                <Link
+                    to={`/editStudent/${_id}`}
+                    className="btn btn-warning text-dark"
+                >
                     Editar
                 </Link>
             </td>
-            <td>
+            <td className="text-center">
                 <button className="btn btn-danger" onClick={deleteStudent}>
                     Apagar
                 </button>

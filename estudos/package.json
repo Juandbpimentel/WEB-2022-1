@@ -4,6 +4,9 @@
     "private": true,
     "dependencies": {
         "@popperjs/core": "^2.11.5",
+        "@radix-ui/colors": "^0.1.8",
+        "@radix-ui/react-scroll-area": "^0.1.4",
+        "@stitches/react": "^1.2.8",
         "@testing-library/jest-dom": "^5.16.4",
         "@testing-library/react": "^12.1.4",
         "@testing-library/user-event": "^13.5.0",
@@ -17,6 +20,7 @@
         "react-icons": "^4.3.1",
         "react-router-dom": "^6.3.0",
         "react-scripts": "5.0.0",
+        "styled-components": "^5.3.5",
         "web-vitals": "^2.1.4"
     },
     "scripts": {
@@ -24,7 +28,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "backend": "json-server --watch data/db.json --port 3002"
+        "banco": "json-server --watch data/db.json --port 3001"
     },
     "eslintConfig": {
         "extends": [
