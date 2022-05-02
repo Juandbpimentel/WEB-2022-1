@@ -36,10 +36,10 @@ const CreateTeacher = () => {
         };
         //console.log(teacher);
         axios
-            .post('http://localhost:3001/teachers', teacher)
+            .post('http://localhost:3002/crud/teachers/create', teacher)
             .then((resp) => {
                 console.log(
-                    navigate('teachers', {
+                    navigate('/teachers', {
                         message: `Cadastrado bem sucedido!`,
                     })
                 );

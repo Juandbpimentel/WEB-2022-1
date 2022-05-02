@@ -2,23 +2,17 @@ import React from 'react';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { styled } from '@stitches/react';
 
-const ScrollAreaDemo = (props) => {
+const ScrollArea = (props) => {
     const StyledScrollArea = styled(ScrollAreaPrimitive.Root, {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        position: 'absolute',
-        maxWidth: '1227px',
-        maxHeight: '450px',
+        height: '50vh',
+        borderRadius: '7px',
+        overflow: 'hidden',
     });
 
     const StyledViewport = styled(ScrollAreaPrimitive.Viewport, {
         width: '100%',
         height: '100%',
-        //background: 'white',
-        padding: '0',
-        margin: 0,
-        //background: '#212529',
+        borderRadius: 'inherit',
     });
 
     const StyledScrollbar = styled(ScrollAreaPrimitive.Scrollbar, {
@@ -27,7 +21,7 @@ const ScrollAreaDemo = (props) => {
         userSelect: 'none',
         // disable browser handling of all panning and zooming gestures on touch devices
         touchAction: 'none',
-        padding: 0,
+        padding: 2,
         background: '#3a3e41',
         transition: 'background 160ms ease-out',
         '&:hover': { background: '#575b5e' },
@@ -42,6 +36,7 @@ const ScrollAreaDemo = (props) => {
         flex: 1,
         background: '#f8f9fa',
         borderRadius: props.size,
+        // increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
         position: 'relative',
         '&::before': {
             content: '""',
@@ -49,8 +44,8 @@ const ScrollAreaDemo = (props) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '100%',
-            height: '100%',
+            width: '50%',
+            height: '50%',
             minWidth: 22,
             minHeight: 22,
         },
@@ -74,4 +69,4 @@ const ScrollAreaDemo = (props) => {
     );
 };
 
-export default ScrollAreaDemo;
+export default ScrollArea;

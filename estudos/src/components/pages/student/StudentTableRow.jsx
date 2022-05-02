@@ -12,10 +12,10 @@ function StudentTableRow({
         axios
             .delete(`http://localhost:3002/crud/students/delete/${_id}`)
             .then(() => {
-                deleteStudentById(_id);
                 console.log(
                     `Registro do aluno de id:${_id} foi apagado com sucessso!`
                 );
+                deleteStudentById(_id);
             })
             .catch((err) => console.log(err));
     }

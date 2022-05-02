@@ -18,12 +18,7 @@ router.patch('/update/:id', (req, res, next) => {
 
 router.delete('/delete/:id', (req, res, next) => {
     const ok = StudentService.delete(req.params.id);
-    return res.json({ sucess: false });
-    /*
-    const ok = StudentService.delete(req.params._id);
-    if (ok) return res.json({ sucess: true });
-    else return res.json({ sucess: false });
-    */
+    return ok ? res.json({ sucess: true }) : res.json({ sucess: false });
 });
 
 router.get('/retrieve/:id', (req, res, next) => {

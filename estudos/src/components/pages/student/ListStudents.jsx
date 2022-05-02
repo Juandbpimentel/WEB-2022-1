@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import StudentTableRow from './StudentTableRow';
-import ScrollAreaDemo from '../../layout/ScrollAreaDemo';
-import './styles.css';
+import ScrollArea from '../../layout/ScrollArea';
 
 const ListStudents = () => {
+    // eslint-disable-next-line
     const [students, setStudents] = useState([]);
+    // eslint-disable-next-line
     const [message, setMessage] = useState('');
+    // eslint-disable-next-line
     const [type, setType] = useState('success');
     const prev = useRef();
 
@@ -44,38 +46,22 @@ const ListStudents = () => {
         <>
             <main>
                 <h4>Estudantes</h4>
-                <div id="table-wrapper">
-                    <div id="table-scroll">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <span className="text_id">ID</span>
-                                    </th>
-                                    <th>
-                                        <span className="text_name">Nome</span>
-                                    </th>
-                                    <th>
-                                        <span className="text_course">
-                                            Curso
-                                        </span>
-                                    </th>
-                                    <th>
-                                        <span className="text_ira">IRA</span>
-                                    </th>
-                                    <th colSpan="2">
-                                        <span className="text_action">
-                                            Ações
-                                        </span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody style={{ marginTop: '10px' }}>
-                                {generateTable()}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <ScrollArea size={10}>
+                    <table className="table table-bordered table-striped table-dark mx-auto">
+                        <thead>
+                            <tr>
+                                <th className="text-center">ID</th>
+                                <th className="text-center">Nome</th>
+                                <th className="text-center">Curso</th>
+                                <th className="text-center">IRA</th>
+                                <th colSpan="2" className="text-center">
+                                    Ações
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>{generateTable()}</tbody>
+                    </table>
+                </ScrollArea>
             </main>
         </>
     );

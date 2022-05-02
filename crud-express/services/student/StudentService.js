@@ -23,7 +23,6 @@ let _id = 14;
 class StudentService {
     static create(data) {
         let student = new StudentModel(_id++, data.name, data.course, data.ira);
-        _id++;
         students.push(student);
         return student;
     }
@@ -46,6 +45,7 @@ class StudentService {
                 return true;
             }
         }
+        return false;
     }
 
     static retrieve(_id) {

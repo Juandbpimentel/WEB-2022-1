@@ -37,7 +37,7 @@ const CreateTeacher = () => {
         };
         axios
             .patch(
-                `http://localhost:3001/teachers/${params._id}`,
+                `http://localhost:3002/crud/teachers/update/${params._id}`,
                 updateTeacher
             )
             .then((resp) => {
@@ -54,7 +54,7 @@ const CreateTeacher = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3001/teachers/${params._id}`)
+            .get(`http://localhost:3002/crud/teachers/retrieve/${params._id}`)
             .then((resp) => {
                 setUniversity(resp.data.university);
                 setSalary(resp.data.salary);

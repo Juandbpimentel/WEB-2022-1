@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import TeacherTableRow from './TeacherTableRow';
+import ScrollArea from '../../layout/ScrollArea';
 
 const ListTeachers = () => {
     const [teachers, setTeachers] = useState([]);
+    // eslint-disable-next-line
+    const [message, setMessage] = useState('');
+    // eslint-disable-next-line
+    const [type, setType] = useState('success');
     const prev = useRef();
 
     useEffect(() => {
         if (prev.current === teachers) return;
         axios
-            .get('http://localhost:3001/teachers')
+            .get('http://localhost:3002/crud/teachers/list')
             .then((resp) => {
                 prev.current = resp.data;
                 setTeachers(resp.data);
@@ -19,7 +24,6 @@ const ListTeachers = () => {
 
     const deleteTeacherById = (_id) => {
         setTeachers(teachers.filter((teacher) => teacher._id !== _id));
-        console.log('deleteUpdateSuccess');
     };
 
     function generateTable() {
@@ -38,24 +42,23 @@ const ListTeachers = () => {
     return (
         <div>
             <h4>Professores</h4>
-            <table
-                className="table table-striped table-dark"
-                style={{ marginTop: 20 }}
-            >
-                <thead>
-                    <tr>
-                        <td>ID</td>
-                        <td>Nome</td>
-                        <td>Salário</td>
-                        <td>Universidade</td>
-                        <td>Área de formação</td>
-                        <th colSpan="2" style={{ textAlign: 'center' }}>
-                            Ações
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>{generateTable()}</tbody>
-            </table>
+            <ScrollArea size={10}>
+                <table className="table table-bordered table-striped table-dark mx-auto">
+                    <thead>
+                        <tr>
+                            <th className="text-center">ID</th>
+                            <th className="text-center">Nome</th>
+                            <th className="text-center">Salário</th>
+                            <th className="text-center">Universidade</th>
+                            <th className="text-center">Área de formação</th>
+                            <th colSpan="2" className="text-center">
+                                Ações
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>{generateTable()}</tbody>
+                </table>
+            </ScrollArea>
         </div>
     );
 };
