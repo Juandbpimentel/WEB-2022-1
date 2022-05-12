@@ -9,6 +9,7 @@ function StudentTableRow({
     deleteStudentById,
 }) {
     function deleteStudent() {
+        if(window.confirm(`Você deseja mesmo excluir o estudante de ID: ${_id} ?`))  
         axios
             .delete(`http://localhost:3002/crud/students/delete/${_id}`)
             .then(() => {
