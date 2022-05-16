@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 require('./db/mongo.connection');
 
 var studentsMongo = require('./routes/student/student.routes');
+var teachersMongo = require('./routes/teacher/teacher.routes');
 //var students = require('./routes/student/StudentRoutes');
 //var teachers = require('./routes/teacher/TeacherRoutes');
 
@@ -33,5 +34,5 @@ app.use((req, res, next) => {
 //app.use('/crud/teachers', teachers);
 //endpoint para students
 app.use('/crud/students', studentsMongo);
-
+app.use('/crud/teachers', teachersMongo);
 module.exports = app;

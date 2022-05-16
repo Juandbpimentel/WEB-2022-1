@@ -6,7 +6,7 @@ function TeacherTableRow(props) {
     const { _id, name, salary, university, degree } = props.teacher;
 
     function deleteTeacher() {
-        if(window.alert(`Você deseja mesmo excluir o professor de ID: ${_id} ?`)) 
+        if(window.confirm(`Você deseja mesmo excluir o professor de ID: ${_id} ?`)) 
         axios
             .delete(`http://localhost:3002/crud/teachers/delete/${_id}`)
             .then((response) => {
