@@ -1,9 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import StudentTableRow from './StudentTableRow';
 import ScrollArea from '../../layout/ScrollArea';
 
-const ListStudents = () => {
+import { collection, getDocs } from 'firebase/firestore';
+import FirebaseContext from '../../../utils/FirebaseContext';
+
+const ListStudentsPage = () => (
+    <>
+        <FirebaseContext.Consumer>
+            {(firebase) => <ListStudents firebase={firebase} />}
+        </FirebaseContext.Consumer>
+    </>
+);
+
+const ListStudents = ({ firebase }) => {
     // eslint-disable-next-line
     const [students, setStudents] = useState([]);
     // eslint-disable-next-line
@@ -14,14 +24,28 @@ const ListStudents = () => {
 
     useEffect(() => {
         if (prev.current === students) return;
-        axios
-            .get('http://localhost:3002/crud/students/list')
-            .then((resp) => {
-                prev.current = resp.data;
-                setStudents(resp.data);
-            })
-            .catch((err) => console.log(err));
-    }, [students]);
+        let ref = firebase.getFirestoreDb();
+        getDocs(collection(ref, 'students')).then((querySnapshot) => {
+            alimentarStudents(querySnapshot);
+        });
+    }, [firebase, students]);
+
+    function alimentarStudents(query) {
+        let students = [];
+        query.forEach(
+            (doc) => {
+                const { name, course, ira } = doc.data();
+                students.push({
+                    _id: doc.id,
+                    name,
+                    course,
+                    ira,
+                });
+            } //doc
+        ); //forEach
+        prev.current = students;
+        setStudents(students);
+    }
 
     function deleteStudentById(_id) {
         setStudents(students.filter((student) => student._id !== _id));
@@ -66,4 +90,5 @@ const ListStudents = () => {
         </>
     );
 };
-export default ListStudents;
+
+export default ListStudentsPage;
