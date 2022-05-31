@@ -45,11 +45,6 @@ const ListStudents = ({ firebase }) => {
         setStudents(students);
     }
 
-    function deleteStudentById(_id) {
-        setStudents(students.filter((student) => student._id !== _id));
-        console.log('deleteUpdateSuccess');
-    }
-
     function generateTable() {
         if (!students) return;
         return students.map((student, i) => {
@@ -57,7 +52,6 @@ const ListStudents = ({ firebase }) => {
                 <StudentTableRow
                     student={student}
                     key={i}
-                    deleteStudentById={deleteStudentById}
                     firebase={firebase}
                 />
             );
