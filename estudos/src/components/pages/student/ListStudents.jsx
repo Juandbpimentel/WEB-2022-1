@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import StudentTableRow from './StudentTableRow';
 import ScrollArea from '../../layout/ScrollArea';
-
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, query, onSnapshot } from 'firebase/firestore';
 import FirebaseContext from '../../../utils/FirebaseContext';
 
 const ListStudentsPage = () => (
@@ -25,9 +24,8 @@ const ListStudents = ({ firebase }) => {
     useEffect(() => {
         if (prev.current === students) return;
         let ref = firebase.getFirestoreDb();
-        getDocs(collection(ref, 'students')).then((querySnapshot) => {
-            alimentarStudents(querySnapshot);
-        });
+        const q = query(collection(ref, 'students'));
+        onSnapshot(q, alimentarStudents);
     }, [firebase, students]);
 
     function alimentarStudents(query) {
@@ -60,6 +58,7 @@ const ListStudents = ({ firebase }) => {
                     student={student}
                     key={i}
                     deleteStudentById={deleteStudentById}
+                    firebase={firebase}
                 />
             );
         });

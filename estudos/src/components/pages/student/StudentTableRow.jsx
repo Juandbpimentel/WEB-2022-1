@@ -1,15 +1,27 @@
-import axios from 'axios';
+import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import './styles.css';
 
 function StudentTableRow({
     student: { _id, name, course, ira },
     deleteStudentById,
+    firebase,
 }) {
-    function deleteStudent() {
-        if(window.confirm(`Você deseja mesmo excluir o estudante de ID: ${_id} ?`))  
+    function deleteStudent(_id, name) {
+        let res = window.confirm(
+            `Você deseja mesmo excluir o estudante de nome: ${name} ?`
+        );
+        if (res) {
+            console.log('ok');
+            let ref = firebase.getFirestoreDb();
+            const docRef = doc(ref, 'students', _id);
+            deleteDoc(docRef)
+                .then(() => {
+                    console.log(`${name} apagado.`);
+                })
+                .catch((err) => console.err(err));
+        }
+        /*
         axios
             .delete(`http://localhost:3002/crud/students/delete/${_id}`)
             .then(() => {
@@ -19,14 +31,16 @@ function StudentTableRow({
                 deleteStudentById(_id);
             })
             .catch((err) => console.log(err));
+        
+        */
     }
     return (
         <tr>
-            <td className="row_id">
+            <td className="text-center">
                 <span>{_id}</span>
             </td>
-            <td>
-                <span className="row_name">{name}</span>
+            <td className="text-center">
+                <span>{name}</span>
             </td>
             <td className="text-center">
                 <span>{course}</span>
@@ -43,7 +57,12 @@ function StudentTableRow({
                 </Link>
             </td>
             <td className="text-center">
-                <button className="btn btn-danger" onClick={deleteStudent}>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                        deleteStudent(_id, name);
+                    }}
+                >
                     Apagar
                 </button>
             </td>
