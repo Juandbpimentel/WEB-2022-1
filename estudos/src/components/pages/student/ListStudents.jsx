@@ -1,49 +1,36 @@
 import React, { useEffect, useRef, useState } from 'react';
 import StudentTableRow from './StudentTableRow';
 import ScrollArea from '../../layout/ScrollArea';
-import { collection, query, onSnapshot } from 'firebase/firestore';
 import FirebaseContext from '../../../utils/FirebaseContext';
+import StudentService from '../../../services/StudentService';
 
 const ListStudentsPage = () => (
     <>
         <FirebaseContext.Consumer>
-            {(firebase) => <ListStudents firebase={firebase} />}
+            {(context) => <ListStudents firebase={context} />}
         </FirebaseContext.Consumer>
     </>
 );
 
 const ListStudents = ({ firebase }) => {
-    // eslint-disable-next-line
     const [students, setStudents] = useState([]);
+    const prev = useRef();
+
     // eslint-disable-next-line
     const [message, setMessage] = useState('');
     // eslint-disable-next-line
     const [type, setType] = useState('success');
-    const prev = useRef();
 
     useEffect(() => {
         if (prev.current === students) return;
-        let ref = firebase.getFirestoreDb();
-        const q = query(collection(ref, 'students'));
-        onSnapshot(q, alimentarStudents);
+        StudentService.list_onSnapshot(
+            firebase.getFirestoreDb(),
+            (students) => {
+                prev.current = students;
+                setStudents(students);
+            }
+        );
     }, [firebase, students]);
-
-    function alimentarStudents(query) {
-        let students = [];
-        query.forEach(
-            (doc) => {
-                const { name, course, ira } = doc.data();
-                students.push({
-                    _id: doc.id,
-                    name,
-                    course,
-                    ira,
-                });
-            } //doc
-        ); //forEach
-        prev.current = students;
-        setStudents(students);
-    }
 
     function generateTable() {
         if (!students) return;
@@ -58,7 +45,6 @@ const ListStudents = ({ firebase }) => {
         });
     }
 
-    //<ScrollAreaDemo size={10}></ScrollAreaDemo>
     return (
         <>
             <main>

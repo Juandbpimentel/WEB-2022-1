@@ -10,7 +10,7 @@ const Navbar = () => {
                     <img
                         src={NegativeBrand}
                         alt="Logomarca da ufc"
-                        style={{ maxHeight: 60 }}
+                        style={{ maxHeight: '4rem', paddingLeft: '2.5rem' }}
                     />
                 </Link>
                 <div

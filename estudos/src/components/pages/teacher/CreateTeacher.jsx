@@ -1,9 +1,20 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import FirebaseContext from '../../../utils/FirebaseContext';
+import TeacherService from '../../../services/TeacherService';
 
-const CreateTeacher = () => {
+const CreateTeacherPage = () => {
+    return (
+        <>
+            <FirebaseContext.Consumer>
+                {(firebase) => <CreateTeacher firebase={firebase} />}
+            </FirebaseContext.Consumer>
+        </>
+    );
+};
+
+const CreateTeacher = ({ firebase }) => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState(0);
     const [university, setUniversity] = useState('');
@@ -28,23 +39,26 @@ const CreateTeacher = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const teacher = {
+        const newTeacher = {
             name: name,
             salary: salary,
             university: university,
             degree: degree,
         };
-        //console.log(teacher);
-        axios
-            .post('http://localhost:3002/crud/teachers/create', teacher)
-            .then((resp) => {
-                console.log(
-                    navigate('/teachers', {
-                        message: `Cadastrado bem sucedido!`,
-                    })
-                );
-            })
-            .catch((err) => console.log(err));
+        TeacherService.create(
+            firebase.getFirestoreDb(),
+            (_id) => {
+                console.log(`Cadastro de professor de id ${_id} bem sucedido!`);
+                navigate('/teachers', {
+                    message: `Cadastrado bem sucedido!`,
+                });
+            },
+            newTeacher
+        );
+
+        /*
+        
+        */
     }
 
     return (
@@ -109,4 +123,4 @@ const CreateTeacher = () => {
         </div>
     );
 };
-export default CreateTeacher;
+export default CreateTeacherPage;

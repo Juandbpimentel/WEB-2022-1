@@ -1,8 +1,17 @@
 import { useState, React, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import FirebaseContext from '../../../utils/FirebaseContext';
+import StudentService from '../../../services/StudentService';
 
-function EditStudent(props) {
+const EditStudentPage = () => {
+    return (
+        <FirebaseContext.Consumer>
+            {(firebase) => <EditStudent firebase={firebase} />}
+        </FirebaseContext.Consumer>
+    );
+};
+
+function EditStudent({ firebase }) {
     const [name, setName] = useState('');
     const [course, setCourse] = useState('');
     const [ira, setIra] = useState(0);
@@ -17,30 +26,32 @@ function EditStudent(props) {
             course,
             ira,
         };
-        axios
-            .patch(
-                `http://localhost:3002/crud/students/update/${params._id}`,
-                updatedStudent
-            )
-            .then((resp) => {
+        StudentService.update(
+            firebase.getFirestoreDb(),
+            (_id) => {
+                console.log(`Estudante ${_id} foi atualizado com sucesso!`);
                 navigate('/students', {
-                    message: `Estudante editado com sucesso!`,
+                    message: `Edição bem sucedida!`,
                 });
-            })
-            .catch((err) => console.log(err));
+            },
+            params._id,
+            updatedStudent
+        );
+        /*
+         */
     };
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:3002/crud/students/retrieve/${params._id}`)
-            .then((resp) => {
-                setName(resp.data.name);
-                setCourse(resp.data.course);
-                setIra(resp.data.ira);
-            })
-            .catch((err) => console.log(err));
-        //console.log({ name, ira, course });
-    }, [params._id]);
+        StudentService.retrieve_promisse(
+            firebase.getFirestoreDb(),
+            (student) => {
+                setName(student.name);
+                setCourse(student.course);
+                setIra(student.ira);
+            },
+            params._id
+        );
+    }, [params._id, firebase]);
 
     return (
         <div>
@@ -91,4 +102,4 @@ function EditStudent(props) {
     );
 }
 
-export default EditStudent;
+export default EditStudentPage;

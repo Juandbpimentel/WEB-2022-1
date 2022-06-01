@@ -1,9 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import StudentService from '../../../services/StudentService';
 
-const CreateStudent = () => {
+import FirebaseContext from '../../../utils/FirebaseContext';
+
+const CreateStudentPage = () => {
+    return (
+        <FirebaseContext.Consumer>
+            {(firebase) => <CreateStudent firebase={firebase} />}
+        </FirebaseContext.Consumer>
+    );
+};
+
+const CreateStudent = ({ firebase }) => {
     const [name, setName] = useState('');
     const [ira, setIra] = useState(0);
     const [course, setCourse] = useState('');
@@ -24,16 +34,19 @@ const CreateStudent = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const student = { name: name, ira: ira, course: course };
-        //console.log(student);
-        axios
-            .post('http://localhost:3002/crud/students/create', student)
-            .then((resp) => {
+
+        const newStudent = { name: name, ira: ira, course: course };
+
+        StudentService.create(
+            firebase.getFirestoreDb(),
+            (_id) => {
+                console.log(`Estudante ${_id} foi criado com sucesso!`);
                 navigate('/students', {
                     message: `Cadastro bem sucedido!`,
                 });
-            })
-            .catch((err) => console.log(err));
+            },
+            newStudent
+        );
     }
 
     return (
@@ -87,4 +100,4 @@ const CreateStudent = () => {
         </div>
     );
 };
-export default CreateStudent;
+export default CreateStudentPage;

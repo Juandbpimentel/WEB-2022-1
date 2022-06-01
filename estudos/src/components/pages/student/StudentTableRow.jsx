@@ -1,6 +1,6 @@
-import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import StudentService from '../../../services/StudentService';
 
 function StudentTableRow({ student: { _id, name, course, ira }, firebase }) {
     function deleteStudent(_id, name) {
@@ -9,13 +9,13 @@ function StudentTableRow({ student: { _id, name, course, ira }, firebase }) {
         );
         if (res) {
             console.log('ok');
-            let ref = firebase.getFirestoreDb();
-            const docRef = doc(ref, 'students', _id);
-            deleteDoc(docRef)
-                .then(() => {
-                    console.log(`${name} apagado.`);
-                })
-                .catch((err) => console.err(err));
+            StudentService.delete(
+                firebase.getFirestoreDb(),
+                (_id) => {
+                    console.log(`Estudante de id ${_id} apagado com sucesso.`);
+                },
+                _id
+            );
         }
         /*
         axios

@@ -1,19 +1,25 @@
-import axios from 'axios';
-//import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import TeacherService from '../../../services/TeacherService';
 
-function TeacherTableRow(props) {
-    const { _id, name, salary, university, degree } = props.teacher;
-
+function TeacherTableRow({
+    teacher: { _id, name, salary, university, degree },
+    firebase,
+}) {
     function deleteTeacher() {
-        if(window.confirm(`Você deseja mesmo excluir o professor de ID: ${_id} ?`)) 
-        axios
-            .delete(`http://localhost:3002/crud/teachers/delete/${_id}`)
-            .then((response) => {
-                console.log(`Registro do professor de id:${_id} foi apagado.`);
-                props.deleteTeacherById(_id);
-            })
-            .catch((error) => console.log(error));
+        let res = window.confirm(
+            `Você deseja mesmo excluir o professor de ID: ${_id} ?`
+        );
+        if (res) {
+            TeacherService.delete(
+                firebase.getFirestoreDb(),
+                (_id) => {
+                    console.log(
+                        `Registro do professor de id:${_id} foi apagado.`
+                    );
+                },
+                _id
+            );
+        }
     }
     /*
         const [data, setData] = useState('');

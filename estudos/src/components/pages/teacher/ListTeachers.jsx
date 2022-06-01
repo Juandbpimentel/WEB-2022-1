@@ -1,30 +1,38 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
 import TeacherTableRow from './TeacherTableRow';
 import ScrollArea from '../../layout/ScrollArea';
+import FirebaseContext from '../../../utils/FirebaseContext';
+import TeacherService from '../../../services/TeacherService';
 
-const ListTeachers = () => {
+const ListTeachersPage = () => {
+    return (
+        <>
+            <FirebaseContext.Consumer>
+                {(context) => <ListTeachers firebase={context} />}
+            </FirebaseContext.Consumer>
+        </>
+    );
+};
+
+const ListTeachers = ({ firebase }) => {
     const [teachers, setTeachers] = useState([]);
+    const prev = useRef();
+
     // eslint-disable-next-line
     const [message, setMessage] = useState('');
     // eslint-disable-next-line
     const [type, setType] = useState('success');
-    const prev = useRef();
 
     useEffect(() => {
         if (prev.current === teachers) return;
-        axios
-            .get('http://localhost:3002/crud/teachers/list')
-            .then((resp) => {
-                prev.current = resp.data;
-                setTeachers(resp.data);
-            })
-            .catch((err) => console.log(err));
-    }, [teachers]);
-
-    const deleteTeacherById = (_id) => {
-        setTeachers(teachers.filter((teacher) => teacher._id !== _id));
-    };
+        TeacherService.list_onSnapshot(
+            firebase.getFirestoreDb(),
+            (teachers) => {
+                prev.current = teachers;
+                setTeachers(teachers);
+            }
+        );
+    }, [firebase, teachers]);
 
     function generateTable() {
         if (!teachers) return;
@@ -33,7 +41,7 @@ const ListTeachers = () => {
                 <TeacherTableRow
                     teacher={teacher}
                     key={i}
-                    deleteTeacherById={deleteTeacherById}
+                    firebase={firebase}
                 />
             );
         });
@@ -62,4 +70,4 @@ const ListTeachers = () => {
         </div>
     );
 };
-export default ListTeachers;
+export default ListTeachersPage;

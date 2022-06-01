@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import TeacherService from '../../../services/TeacherService';
+import FirebaseContext from '../../../utils/FirebaseContext';
 
-const CreateTeacher = () => {
+const EditTeacherPage = () => {
+    return (
+        <FirebaseContext.Consumer>
+            {(context) => <EditTeacher firebase={context} />}
+        </FirebaseContext.Consumer>
+    );
+};
+
+const EditTeacher = ({ firebase }) => {
     const [name, setName] = useState('');
     const [salary, setSalary] = useState(0);
     const [university, setUniversity] = useState('');
@@ -29,42 +38,37 @@ const CreateTeacher = () => {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const updateTeacher = {
+        const updatedTeacher = {
             name,
             salary,
             university,
             degree,
         };
-        axios
-            .patch(
-                `http://localhost:3002/crud/teachers/update/${params._id}`,
-                updateTeacher
-            )
-            .then((resp) => {
-                console.log(
-                    navigate('/teachers', {
-                        message: `Professor editado com sucesso!`,
-                    })
-                );
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        TeacherService.update(
+            firebase.getFirestoreDb(),
+            (_id) => {
+                console.log(`Professor de id ${_id} editado com sucesso!`);
+                navigate('/teachers', {
+                    message: `Professor editado com sucesso!`,
+                });
+            },
+            params._id,
+            updatedTeacher
+        );
     }
 
     useEffect(() => {
-        axios
-            .get(`http://localhost:3002/crud/teachers/retrieve/${params._id}`)
-            .then((resp) => {
-                setUniversity(resp.data.university);
-                setSalary(resp.data.salary);
-                setName(resp.data.name);
-                setDegree(resp.data.degree);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [params._id]);
+        TeacherService.retrieve(
+            firebase.getFirestoreDb(),
+            (teacher) => {
+                setUniversity(teacher.university);
+                setSalary(teacher.salary);
+                setName(teacher.name);
+                setDegree(teacher.degree);
+            },
+            params._id
+        );
+    }, [firebase, params._id]);
 
     return (
         <div>
@@ -128,4 +132,4 @@ const CreateTeacher = () => {
         </div>
     );
 };
-export default CreateTeacher;
+export default EditTeacherPage;
