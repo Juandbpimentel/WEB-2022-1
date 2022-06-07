@@ -1,21 +1,25 @@
 # Repositório De Atividades - Desenvolvimento de Software para Web
 
-## [Atividade-01](atividade-01)
+## Atividade-01
 
-<br />
+[Atividade React.Children e props.children](atividades/atividade-01)
 
-## [Atividade-02](atividade-02)
+## Atividade-02
 
-<br />
+[Utilizar Bootstrap e Criar Crud de Professor](atividades/atividade-02)
 
-## [Atividade-03](atividade-03)
+## Atividade-03
 
-<br />
+[Criar Servidor Express para Professor](atividades/atividade-03)
 
-## [Atividade-04](atividade-04)
+## Atividade-04
 
-<br />
+[Utilizar o Mongoshell para manipulação de dados do banco](atividades/atividade-04)
 
-## [Atividade-05](atividade-05)
+## Atividade-05
 
-<br />
+[Implementar Express + Mongoose + React para a entidade Professor](atividades/atividade-05)
+
+## Atividade-06
+
+[Fazer a conexão com o crud firestore para entidade professor](atividades/atividade-06)
