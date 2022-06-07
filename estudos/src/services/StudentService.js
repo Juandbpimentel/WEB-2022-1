@@ -8,6 +8,7 @@ import {
     updateDoc,
     deleteDoc,
     getDoc,
+    orderBy,
 } from 'firebase/firestore';
 
 export default class StudentService {
@@ -33,7 +34,7 @@ export default class StudentService {
     };
 
     static list_onSnapshot = (firestore, callback) => {
-        const q = query(collection(firestore, 'students'));
+        const q = query(collection(firestore, 'students'), orderBy('name'));
 
         StudentService.unscribe = onSnapshot(q, (querySnapshot) => {
             let students = [];

@@ -5,6 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { firebaseConfig } from '../keys/firebase_key';
 
 export default class Firebase {
+    static user = null;
     constructor() {
         this.app = initializeApp(firebaseConfig);
     }
@@ -13,7 +14,15 @@ export default class Firebase {
         return getFirestore(this.app);
     }
 
-    getAuth() {
+    getAuthentication() {
         return getAuth(this.app);
+    }
+
+    setUser(user) {
+        this.user = user;
+    }
+
+    getUser(user) {
+        return this.user;
     }
 }

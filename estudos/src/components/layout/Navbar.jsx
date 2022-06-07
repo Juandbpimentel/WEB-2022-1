@@ -1,12 +1,107 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import NegativeBrand from '../img/monocromatic_brand_negative.png';
 
-const Navbar = () => {
+import FirebaseUserService from '../../services/FirebaseUserService';
+import FirebaseContext from '../../utils/FirebaseContext';
+
+const NavbarConsumer = ({ logged, setLogged }) => {
+    return (
+        <FirebaseContext.Consumer>
+            {(context) => (
+                <Navbar
+                    firebase={context}
+                    logged={logged}
+                    setLogged={setLogged}
+                />
+            )}
+        </FirebaseContext.Consumer>
+    );
+};
+
+const Navbar = ({ firebase, logged, setLogged }) => {
+    const navigate = useNavigate();
+
+    function signUp() {
+        console.log('sign Up');
+    }
+
+    function logout() {
+        if (firebase.getUser() != null) {
+            FirebaseUserService.logout(firebase.getAuthentication(), (res) => {
+                if (res) {
+                    firebase.setUser(null);
+                    setLogged(false), navigate('/');
+                }
+            });
+        }
+    }
+
+    function renderUserLogoutButton() {
+        if (firebase.getUser() != null)
+            return (
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div>
+                        <p style={{ marginBottom: '0px' }}>
+                            Olá, {`${firebase.getUser().email}`}
+                        </p>
+                    </div>
+                    <button
+                        onClick={logout}
+                        style={{ marginLeft: 10 }}
+                        className="btn btn-light"
+                    >
+                        Logout
+                    </button>
+                </div>
+            );
+        else
+            return (
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <button
+                        onClick={() => {
+                            navigate('/');
+                        }}
+                        style={{ marginLeft: 10 }}
+                        className="btn btn-light"
+                    >
+                        Fazer Log In
+                    </button>
+                    <button
+                        onClick={() => {
+                            signUp();
+                        }}
+                        style={{ marginLeft: 10 }}
+                        className="btn btn-light"
+                    >
+                        Registrar-se
+                    </button>
+                </div>
+            );
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-auto">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand">
+                <Link
+                    to={logged ? 'home' : 'unauthorized'}
+                    className="navbar-brand"
+                >
                     <img
                         src={NegativeBrand}
                         alt="Logomarca da ufc"
@@ -19,12 +114,18 @@ const Navbar = () => {
                 >
                     <ul className="navbar-nav">
                         <li className="nav-item active">
-                            <Link to="/" className="nav-link">
+                            <Link
+                                to={logged ? 'home' : 'unauthorized'}
+                                className="nav-link"
+                            >
                                 Início
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="about" className="nav-link">
+                            <Link
+                                to={logged ? 'about' : 'unauthorized'}
+                                className="nav-link"
+                            >
                                 Sobre Nós
                             </Link>
                         </li>
@@ -46,7 +147,11 @@ const Navbar = () => {
                                 <li>
                                     <Link
                                         className="nav-item dropdown-item"
-                                        to="createStudent"
+                                        to={
+                                            logged
+                                                ? 'createStudent'
+                                                : 'unauthorized'
+                                        }
                                     >
                                         Criar Estudante
                                     </Link>
@@ -54,7 +159,9 @@ const Navbar = () => {
                                 <li>
                                     <Link
                                         className="nav-item dropdown-item"
-                                        to="students"
+                                        to={
+                                            logged ? 'students' : 'unauthorized'
+                                        }
                                     >
                                         Ver Estudantes
                                     </Link>
@@ -78,7 +185,11 @@ const Navbar = () => {
                             >
                                 <li>
                                     <Link
-                                        to="createTeacher"
+                                        to={
+                                            logged
+                                                ? 'createTeacher'
+                                                : 'unauthorized'
+                                        }
                                         className="dropdown-item"
                                     >
                                         Criar Professor
@@ -86,7 +197,9 @@ const Navbar = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="teachers"
+                                        to={
+                                            logged ? 'teachers' : 'unauthorized'
+                                        }
                                         className="dropdown-item"
                                     >
                                         Ver Professores
@@ -96,8 +209,9 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
+                {renderUserLogoutButton()}
             </div>
         </nav>
     );
 };
-export default Navbar;
+export default NavbarConsumer;

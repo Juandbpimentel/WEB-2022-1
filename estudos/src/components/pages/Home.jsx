@@ -2,10 +2,7 @@ import React from 'react';
 import homeImg from '../img/home.jpg';
 const Home = () => {
     return (
-        <div
-            className="container-fluid mx-auto"
-            style={{ width: '100%', margin: 'auto' }}
-        >
+        <main>
             <h5 style={{ textAlign: 'center' }}>
                 Sejam bem-vindos ao sistema de gerenciamento da UFC Quixadá
             </h5>
@@ -19,7 +16,8 @@ const Home = () => {
                     marginRight: 'auto',
                 }}
             />
-        </div>
+        </main>
     );
 };
+
 export default Home;

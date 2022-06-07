@@ -16,7 +16,7 @@ const CreateTeacherPage = () => {
 
 const CreateTeacher = ({ firebase }) => {
     const [name, setName] = useState('');
-    const [salary, setSalary] = useState(0);
+    const [salary, setSalary] = useState();
     const [university, setUniversity] = useState('');
     const [degree, setDegree] = useState('');
     const navigate = useNavigate();

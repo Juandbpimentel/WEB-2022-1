@@ -32,20 +32,20 @@ function TeacherTableRow({
 
     return (
         <tr>
-            <td className="row_id">
+            <td className="text-center">
                 <span>{_id}</span>
             </td>
-            <td>
-                <span className="row_name">{name}</span>
+            <td className="text-center">
+                <span>{name}</span>
             </td>
-            <td>
-                <span className="row_name">{salary}</span>
+            <td className="text-center">
+                <span>{salary}</span>
             </td>
-            <td>
-                <span className="row_name">{university}</span>
+            <td className="text-center">
+                <span>{university}</span>
             </td>
-            <td>
-                <span className="row_name">{degree}</span>
+            <td className="text-center">
+                <span>{degree}</span>
             </td>
             <td className="text-center">
                 <Link
