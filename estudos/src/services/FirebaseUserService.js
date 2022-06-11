@@ -6,7 +6,10 @@ export default class FirebaseUserService {
             .then((userCredential) => {
                 callback(userCredential.user);
             })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                console.error(err);
+                callback(null);
+            });
     };
 
     static logout = (auth, callback) => {

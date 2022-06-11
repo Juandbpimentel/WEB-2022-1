@@ -1,5 +1,21 @@
 import React from 'react';
+import FirebaseContext from '../../utils/FirebaseContext';
 import NegativeBrand from '../img/monocromatic_brand_negative.png';
+import RestrictPage from './student/RestrictPage';
+
+const AboutPage = () => {
+    return (
+        <FirebaseContext.Consumer>
+            {(context) => {
+                return (
+                    <RestrictPage isLogged={context.getUser() != null}>
+                        <About />;
+                    </RestrictPage>
+                );
+            }}
+        </FirebaseContext.Consumer>
+    );
+};
 
 const About = () => {
     return (
@@ -26,4 +42,4 @@ const About = () => {
         </>
     );
 };
-export default About;
+export default AboutPage;

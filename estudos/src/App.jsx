@@ -15,7 +15,7 @@ import EditTeacher from './components/pages/teacher/EditTeacher';
 import Navbar from './components/layout/Navbar';
 import Home from './components/pages/Home';
 
-import UserNecessityPage from './components/pages/student/UserNecessityPage';
+import RestrictPage from './components/pages/student/RestrictPage';
 
 function App() {
     const [logged, setLogged] = useState(false);
@@ -36,10 +36,7 @@ function App() {
                     <Route path="createTeacher" element={<CreateTeacher />} />
                     <Route path="teachers" element={<ListTeachers />} />
                     <Route path="/editTeacher/:_id" element={<EditTeacher />} />
-                    <Route
-                        path="unauthorized"
-                        element={<UserNecessityPage />}
-                    />
+                    <Route path="unauthorized" element={<RestrictPage />} />
                 </Routes>
             </div>
         </div>

@@ -1,6 +1,23 @@
 import React from 'react';
+import FirebaseContext from '../../utils/FirebaseContext';
 import homeImg from '../img/home.jpg';
-const Home = () => {
+import RestrictPage from './student/RestrictPage';
+
+const HomePage = () => {
+    return (
+        <FirebaseContext.Consumer>
+            {(context) => {
+                return (
+                    <RestrictPage isLogged={context.getUser() != null}>
+                        <Home firebase={context} />;
+                    </RestrictPage>
+                );
+            }}
+        </FirebaseContext.Consumer>
+    );
+};
+
+const Home = ({ firebase }) => {
     return (
         <main>
             <h5 style={{ textAlign: 'center' }}>
@@ -20,4 +37,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default HomePage;
