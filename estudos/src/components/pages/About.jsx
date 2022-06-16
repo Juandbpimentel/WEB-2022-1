@@ -1,7 +1,7 @@
 import React from 'react';
 import FirebaseContext from '../../utils/FirebaseContext';
 import NegativeBrand from '../img/monocromatic_brand_negative.png';
-import RestrictPage from './student/RestrictPage';
+import RestrictPage from './RestrictPage';
 
 const AboutPage = () => {
     return (

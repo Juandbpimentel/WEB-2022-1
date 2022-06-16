@@ -5,17 +5,18 @@ import styles from './Login.module.css';
 import FirebaseContext from '../../utils/FirebaseContext';
 import FirebaseUserService from '../../services/FirebaseUserService';
 
-const LoginPage = ({ setLogged }) => {
+const LoginPage = () => {
     return (
         <FirebaseContext.Consumer>
-            {(context) => <Login setLogged={setLogged} firebase={context} />}
+            {(context) => <Login firebase={context} />}
         </FirebaseContext.Consumer>
     );
 };
 
-const Login = ({ firebase, setLogged }) => {
+const Login = ({ firebase }) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     function handleChangeLogin(evt) {
         setLogin(evt.target.value);
@@ -27,20 +28,75 @@ const Login = ({ firebase, setLogged }) => {
 
     function handleSubmit(evt) {
         evt.preventDefault();
+        setLoading(true);
         //console.log({ user: { login, password } });
         FirebaseUserService.login(
             firebase.getAuthentication(),
             login,
             password,
             (user) => {
-                //console.log(user.email);
+                if (user == null) {
+                    setLoading(false);
+                    return;
+                }
                 firebase.setUser(user);
-                setLogged(true);
-                navigate('/home', {
-                    logged: true,
-                });
+                navigate('/home');
             }
         );
+    }
+    function renderSubmitButton() {
+        if (loading == false) {
+            return (
+                <div
+                    className="form-group"
+                    style={{
+                        paddingTop: 20,
+                        paddingBottom: 20,
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <input
+                        type="submit"
+                        value="Efetuar Login"
+                        className="btn btn-light "
+                        style={{ padding: '5px 5px' }}
+                    />
+                </div>
+            );
+        } else {
+            return (
+                <div
+                    className="form-group"
+                    style={{
+                        paddingTop: 20,
+                        paddingBottom: 20,
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <button
+                        className="btn btn-light"
+                        type="button"
+                        disabled
+                        style={{
+                            padding: '5px 5px',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <span
+                            className="spinner-border spinner-border-sm m-1"
+                            role="status"
+                            aria-hidden="true"
+                        ></span>
+                        Carregando...
+                    </button>
+                </div>
+            );
+        }
     }
 
     return (
@@ -74,22 +130,7 @@ const Login = ({ firebase, setLogged }) => {
                             className="form-control"
                         />
                     </div>
-                    <div
-                        className="form-group"
-                        style={{
-                            paddingTop: 20,
-                            paddingBottom: 20,
-                            display: 'flex',
-                            justifyContent: 'center',
-                        }}
-                    >
-                        <input
-                            type="submit"
-                            value="Efetuar Login"
-                            className="btn btn-light "
-                            style={{ padding: '5px 5px' }}
-                        />
-                    </div>
+                    {renderSubmitButton()}
                 </form>
             </main>
         </div>

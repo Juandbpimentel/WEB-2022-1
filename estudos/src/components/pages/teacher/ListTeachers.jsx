@@ -3,14 +3,19 @@ import TeacherTableRow from './TeacherTableRow';
 import ScrollArea from '../../layout/ScrollArea';
 import FirebaseContext from '../../../utils/FirebaseContext';
 import TeacherService from '../../../services/TeacherService';
+import RestrictPage from '../RestrictPage';
 
 const ListTeachersPage = () => {
     return (
-        <>
-            <FirebaseContext.Consumer>
-                {(context) => <ListTeachers firebase={context} />}
-            </FirebaseContext.Consumer>
-        </>
+        <FirebaseContext.Consumer>
+            {(context) => {
+                return (
+                    <RestrictPage isLogged={context.getUser() != null}>
+                        <ListTeachers firebase={context} />
+                    </RestrictPage>
+                );
+            }}
+        </FirebaseContext.Consumer>
     );
 };
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import StudentService from '../../../services/StudentService';
 
 import FirebaseContext from '../../../utils/FirebaseContext';
-import RestrictPage from './RestrictPage';
+import RestrictPage from '../RestrictPage';
 
 const CreateStudentPage = () => {
     return (

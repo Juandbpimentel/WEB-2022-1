@@ -3,7 +3,7 @@ import StudentTableRow from './StudentTableRow';
 import ScrollArea from '../../layout/ScrollArea';
 import FirebaseContext from '../../../utils/FirebaseContext';
 import StudentService from '../../../services/StudentService';
-import RestrictPage from './RestrictPage';
+import RestrictPage from '../RestrictPage';
 
 const ListStudentsPage = () => (
     <>

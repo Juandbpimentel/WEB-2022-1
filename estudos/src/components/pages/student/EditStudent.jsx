@@ -2,7 +2,7 @@ import { useState, React, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import FirebaseContext from '../../../utils/FirebaseContext';
 import StudentService from '../../../services/StudentService';
-import RestrictPage from './RestrictPage';
+import RestrictPage from '../RestrictPage';
 
 const EditStudentPage = () => {
     return (

@@ -3,14 +3,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FirebaseContext from '../../../utils/FirebaseContext';
 import TeacherService from '../../../services/TeacherService';
+import RestrictPage from '../RestrictPage';
 
 const CreateTeacherPage = () => {
     return (
-        <>
-            <FirebaseContext.Consumer>
-                {(firebase) => <CreateTeacher firebase={firebase} />}
-            </FirebaseContext.Consumer>
-        </>
+        <FirebaseContext.Consumer>
+            {(firebase) => {
+                return (
+                    <RestrictPage isLogged={firebase.getUser()}>
+                        <CreateTeacher firebase={firebase} />
+                    </RestrictPage>
+                );
+            }}
+        </FirebaseContext.Consumer>
     );
 };
 

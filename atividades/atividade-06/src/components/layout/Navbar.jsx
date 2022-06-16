@@ -6,21 +6,15 @@ import NegativeBrand from '../img/monocromatic_brand_negative.png';
 import FirebaseUserService from '../../services/FirebaseUserService';
 import FirebaseContext from '../../utils/FirebaseContext';
 
-const NavbarConsumer = ({ logged, setLogged }) => {
+const NavbarConsumer = () => {
     return (
         <FirebaseContext.Consumer>
-            {(context) => (
-                <Navbar
-                    firebase={context}
-                    logged={logged}
-                    setLogged={setLogged}
-                />
-            )}
+            {(context) => <Navbar firebase={context} />}
         </FirebaseContext.Consumer>
     );
 };
 
-const Navbar = ({ firebase, logged, setLogged }) => {
+const Navbar = ({ firebase }) => {
     const navigate = useNavigate();
 
     function signUp() {
@@ -32,7 +26,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
             FirebaseUserService.logout(firebase.getAuthentication(), (res) => {
                 if (res) {
                     firebase.setUser(null);
-                    setLogged(false), navigate('/');
+                    navigate('/');
                 }
             });
         }
@@ -98,10 +92,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark mx-auto">
             <div className="container-fluid">
-                <Link
-                    to={logged ? 'home' : 'unauthorized'}
-                    className="navbar-brand"
-                >
+                <Link to={'home'} className="navbar-brand">
                     <img
                         src={NegativeBrand}
                         alt="Logomarca da ufc"
@@ -114,18 +105,12 @@ const Navbar = ({ firebase, logged, setLogged }) => {
                 >
                     <ul className="navbar-nav">
                         <li className="nav-item active">
-                            <Link
-                                to={logged ? 'home' : 'unauthorized'}
-                                className="nav-link"
-                            >
+                            <Link to={'home'} className="nav-link">
                                 Início
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link
-                                to={logged ? 'about' : 'unauthorized'}
-                                className="nav-link"
-                            >
+                            <Link to={'about'} className="nav-link">
                                 Sobre Nós
                             </Link>
                         </li>
@@ -147,11 +132,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
                                 <li>
                                     <Link
                                         className="nav-item dropdown-item"
-                                        to={
-                                            logged
-                                                ? 'createStudent'
-                                                : 'unauthorized'
-                                        }
+                                        to={'createStudent'}
                                     >
                                         Criar Estudante
                                     </Link>
@@ -159,9 +140,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
                                 <li>
                                     <Link
                                         className="nav-item dropdown-item"
-                                        to={
-                                            logged ? 'students' : 'unauthorized'
-                                        }
+                                        to={'students'}
                                     >
                                         Ver Estudantes
                                     </Link>
@@ -185,11 +164,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
                             >
                                 <li>
                                     <Link
-                                        to={
-                                            logged
-                                                ? 'createTeacher'
-                                                : 'unauthorized'
-                                        }
+                                        to={'createTeacher'}
                                         className="dropdown-item"
                                     >
                                         Criar Professor
@@ -197,9 +172,7 @@ const Navbar = ({ firebase, logged, setLogged }) => {
                                 </li>
                                 <li>
                                     <Link
-                                        to={
-                                            logged ? 'teachers' : 'unauthorized'
-                                        }
+                                        to={'teachers'}
                                         className="dropdown-item"
                                     >
                                         Ver Professores

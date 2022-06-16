@@ -3,17 +3,25 @@ import StudentTableRow from './StudentTableRow';
 import ScrollArea from '../../layout/ScrollArea';
 import FirebaseContext from '../../../utils/FirebaseContext';
 import StudentService from '../../../services/StudentService';
+import RestrictPage from '../RestrictPage';
 
 const ListStudentsPage = () => (
     <>
         <FirebaseContext.Consumer>
-            {(context) => <ListStudents firebase={context} />}
+            {(context) => {
+                return (
+                    <RestrictPage isLogged={context.getUser() != null}>
+                        <ListStudents firebase={context} />
+                    </RestrictPage>
+                );
+            }}
         </FirebaseContext.Consumer>
     </>
 );
 
 const ListStudents = ({ firebase }) => {
     const [students, setStudents] = useState([]);
+    const [loaded, setLoaded] = useState(false);
     const prev = useRef();
 
     // eslint-disable-next-line
@@ -22,27 +30,41 @@ const ListStudents = ({ firebase }) => {
     const [type, setType] = useState('success');
 
     useEffect(() => {
+        setLoaded(false);
         if (prev.current === students) return;
         StudentService.list_onSnapshot(
             firebase.getFirestoreDb(),
             (students) => {
                 prev.current = students;
                 setStudents(students);
+                setLoaded(true);
             }
         );
     }, [firebase, students]);
 
     function generateTable() {
-        if (!students) return;
-        return students.map((student, i) => {
+        if (loaded) {
             return (
-                <StudentTableRow
-                    student={student}
-                    key={i}
-                    firebase={firebase}
-                />
+                <div
+                    className="spinner-border"
+                    style={{
+                        width: '3rem',
+                        height: '3rem',
+                        alignSelf: 'center',
+                    }}
+                    role="status"
+                ></div>
             );
-        });
+        } else
+            return students.map((student, i) => {
+                return (
+                    <StudentTableRow
+                        student={student}
+                        key={i}
+                        firebase={firebase}
+                    />
+                );
+            });
     }
 
     return (

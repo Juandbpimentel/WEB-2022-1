@@ -6,15 +6,15 @@ import NegativeBrand from '../img/monocromatic_brand_negative.png';
 import FirebaseUserService from '../../services/FirebaseUserService';
 import FirebaseContext from '../../utils/FirebaseContext';
 
-const NavbarConsumer = ({ setLogged }) => {
+const NavbarConsumer = () => {
     return (
         <FirebaseContext.Consumer>
-            {(context) => <Navbar firebase={context} setLogged={setLogged} />}
+            {(context) => <Navbar firebase={context} />}
         </FirebaseContext.Consumer>
     );
 };
 
-const Navbar = ({ firebase, setLogged }) => {
+const Navbar = ({ firebase }) => {
     const navigate = useNavigate();
 
     function signUp() {
@@ -26,7 +26,7 @@ const Navbar = ({ firebase, setLogged }) => {
             FirebaseUserService.logout(firebase.getAuthentication(), (res) => {
                 if (res) {
                     firebase.setUser(null);
-                    setLogged(false), navigate('/');
+                    navigate('/');
                 }
             });
         }

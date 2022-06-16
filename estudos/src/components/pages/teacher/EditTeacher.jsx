@@ -3,11 +3,18 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import TeacherService from '../../../services/TeacherService';
 import FirebaseContext from '../../../utils/FirebaseContext';
+import RestrictPage from '../RestrictPage';
 
 const EditTeacherPage = () => {
     return (
         <FirebaseContext.Consumer>
-            {(context) => <EditTeacher firebase={context} />}
+            {(context) => {
+                return (
+                    <RestrictPage isLogged={context.getUser() != null}>
+                        <EditTeacher firebase={context} />
+                    </RestrictPage>
+                );
+            }}
         </FirebaseContext.Consumer>
     );
 };

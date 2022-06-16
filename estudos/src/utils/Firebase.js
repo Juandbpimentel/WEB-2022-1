@@ -22,7 +22,7 @@ export default class Firebase {
         this.user = user;
     }
 
-    getUser(user) {
+    getUser() {
         return this.user;
     }
 }

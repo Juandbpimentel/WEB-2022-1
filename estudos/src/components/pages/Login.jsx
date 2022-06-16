@@ -5,15 +5,15 @@ import styles from './Login.module.css';
 import FirebaseContext from '../../utils/FirebaseContext';
 import FirebaseUserService from '../../services/FirebaseUserService';
 
-const LoginPage = ({ setLogged }) => {
+const LoginPage = () => {
     return (
         <FirebaseContext.Consumer>
-            {(context) => <Login setLogged={setLogged} firebase={context} />}
+            {(context) => <Login firebase={context} />}
         </FirebaseContext.Consumer>
     );
 };
 
-const Login = ({ firebase, setLogged }) => {
+const Login = ({ firebase }) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -40,10 +40,7 @@ const Login = ({ firebase, setLogged }) => {
                     return;
                 }
                 firebase.setUser(user);
-                setLogged(true);
-                navigate('/home', {
-                    logged: true,
-                });
+                navigate('/home');
             }
         );
     }
@@ -139,8 +136,6 @@ const Login = ({ firebase, setLogged }) => {
         </div>
     );
 };
-
-//fazer o toast, toast container e o carregando desativar em caso de erro
 export default LoginPage;
 
 /*

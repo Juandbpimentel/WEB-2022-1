@@ -1,7 +1,7 @@
 import React from 'react';
 import FirebaseContext from '../../utils/FirebaseContext';
 import homeImg from '../img/home.jpg';
-import RestrictPage from './student/RestrictPage';
+import RestrictPage from './RestrictPage';
 
 const HomePage = () => {
     return (
