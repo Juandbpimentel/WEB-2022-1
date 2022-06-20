@@ -8,8 +8,6 @@ require('./db/mongo.connection');
 
 var studentsMongo = require('./routes/student/student.routes');
 var teachersMongo = require('./routes/teacher/teacher.routes');
-//var students = require('./routes/student/StudentRoutes');
-//var teachers = require('./routes/teacher/TeacherRoutes');
 
 var app = express();
 
