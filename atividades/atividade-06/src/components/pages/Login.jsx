@@ -105,7 +105,7 @@ const Login = ({ firebase }) => {
                 <h1>Login</h1>
                 <form onSubmit={handleSubmit} style={{ width: '100%' }}>
                     <div className="form-group">
-                        <label htmlFor="">Nome</label>
+                        <label htmlFor="">Email</label>
                         <input
                             type="username"
                             value={
@@ -120,7 +120,7 @@ const Login = ({ firebase }) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="">Curso</label>
+                        <label htmlFor="">Senha</label>
                         <input
                             type="password"
                             value={password ?? ''}
