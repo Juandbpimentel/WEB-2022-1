@@ -5,20 +5,82 @@ import styles from './Login.module.css'
 import FirebaseContext from '../../utils/FirebaseContext'
 import FirebaseUserService from '../../services/FirebaseUserService'
 
-const SignUpPage = () => {
+const SignUpPage = ({ setShowToast, setToast }) => {
 	return (
 		<FirebaseContext.Consumer>
-			{(context) => <SignUp firebase={context} />}
+			{(context) => (
+				<SignUp
+					firebase={context}
+					setShowToast={setShowToast}
+					setToast={setToast}
+				/>
+			)}
 		</FirebaseContext.Consumer>
 	)
 }
 
-const SignUp = ({firebase}) => {
+const SignUp = ({ firebase, setShowToast, setToast }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmationPassword, setConfirmationPassword] = useState('')
+
+	const [validate, setValidate] = useState({
+		username: '',
+		password: '',
+		confirmationPassword: '',
+	})
+
 	const [loading, setLoading] = useState(false)
+
 	const navigate = useNavigate()
+
+	const validateFields = () => {
+		let res = true
+		setValidate({ username: '', password: '', confirmationPassword: '' })
+
+		if (username === '' || password === '' || confirmationPassword === '') {
+			setToast({
+				header: 'Erro!',
+				body: 'Preencha todos os campos para concluir login.',
+			})
+			setShowToast(true)
+			setLoading(false)
+			res = false
+			let validateObj = {
+				username: '',
+				password: '',
+				confirmationPassword: '',
+			}
+			if (username === '') validateObj.username = 'is-invalid'
+			if (password === '') validateObj.password = 'is-invalid'
+			if (confirmationPassword === '')
+				validateObj.confirmationPassword = 'is-invalid'
+			setValidate(validateObj)
+			return res
+		}
+
+		if (password != confirmationPassword) {
+			setToast({
+				header: 'Erro!',
+				body: 'A confirmação da senha precisa ser igual á senha.',
+			})
+			setShowToast(true)
+			setLoading(false)
+			let validateObj = {
+				username: '',
+				password: '',
+				confirmationPassword: '',
+			}
+
+			validateObj.confirmationPassword = 'is-invalid'
+			setValidate(validateObj)
+
+			res = false
+		}
+
+		return res
+	}
+
 	function handleChangeLogin(evt) {
 		setUsername(evt.target.value)
 	}
@@ -34,13 +96,26 @@ const SignUp = ({firebase}) => {
 	function handleSubmit(evt) {
 		evt.preventDefault()
 		setLoading(true)
+		if(!validateFields()) return
 		//console.log({ user: { username, password } });
-		FirebaseUserService.signUp(firebase.getAuthentication(),username,password,(resp,content)=>{
-			if(resp){
-				firebase.setUser(content)
-				navigate('/home')
-			}
-		})
+		FirebaseUserService.signUp(
+			firebase.getAuthentication(),
+			username,
+			password,
+			(resp, content) => {
+				if (resp) {
+					firebase.setUser(content)
+					navigate('/home')
+				}else{
+					setLoading(false)
+					setToast({header:"Erro!",body:"O email já foi cadastrado no sistema."})
+					setShowToast(true)
+					let validateObj = {username:'',password:'',confirmationPassword:''}
+					validateObj.username = 'is-invalid'
+					setValidate(validateObj)
+				}
+			},
+		)
 		/*
 		FirebaseUserService.login(
 			firebase.getAuthentication(),
@@ -126,7 +201,7 @@ const SignUp = ({firebase}) => {
 							name='username'
 							autoComplete='username'
 							onChange={handleChangeLogin}
-							className='form-control'
+							className={`form-control ${validate.username}`}
 						/>
 					</div>
 					<div className='form-group'>
@@ -137,7 +212,7 @@ const SignUp = ({firebase}) => {
 							placeholder='Digite a sua senha'
 							name='password'
 							onChange={handleChangePassword}
-							className='form-control'
+							className={`form-control ${validate.password}`}
 						/>
 					</div>
 					<div className='form-group'>
@@ -149,7 +224,7 @@ const SignUp = ({firebase}) => {
 							autoComplete='new-password'
 							name='confirmPassword'
 							onChange={handleChangeConfirmationPassword}
-							className='form-control'
+							className={`form-control ${validate.confirmationPassword}`}
 						/>
 					</div>
 					{renderSubmitButton()}

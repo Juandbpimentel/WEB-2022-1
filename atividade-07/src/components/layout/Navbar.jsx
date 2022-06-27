@@ -17,9 +17,10 @@ const NavbarConsumer = () => {
 const Navbar = ({ firebase }) => {
     const navigate = useNavigate();
 
-    function signUp() {
-        console.log('sign Up');
-    }
+    function signUp(e){
+		e.preventDefault()
+		navigate('/signUp')
+	}
 
     function logout() {
         if (firebase.getUser() != null) {
@@ -51,7 +52,7 @@ const Navbar = ({ firebase }) => {
                     <button
                         onClick={logout}
                         style={{ marginLeft: 10 }}
-                        className="btn btn-light"
+                        className="btn btn-primary"
                     >
                         Logout
                     </button>
@@ -72,13 +73,13 @@ const Navbar = ({ firebase }) => {
                             navigate('/');
                         }}
                         style={{ marginLeft: 10 }}
-                        className="btn btn-light"
+                        className="btn btn-primary"
                     >
                         Fazer Log In
                     </button>
                     <button
-                        onClick={() => {
-                            signUp();
+                        onClick={(e) => {
+                            signUp(e);
                         }}
                         style={{ marginLeft: 10 }}
                         className="btn btn-light"
@@ -96,7 +97,7 @@ const Navbar = ({ firebase }) => {
                     <img
                         src={NegativeBrand}
                         alt="Logomarca da ufc"
-                        style={{ maxHeight: '4rem', paddingLeft: '2.5rem' }}
+                        style={{ maxHeight: '4rem'}}
                     />
                 </Link>
                 <div

@@ -5,19 +5,41 @@ import styles from './Login.module.css'
 import FirebaseContext from '../../utils/FirebaseContext'
 import FirebaseUserService from '../../services/FirebaseUserService'
 
-const LoginPage = () => {
+const LoginPage = ({setShowToast,setToast}) => {
 	return (
 		<FirebaseContext.Consumer>
-			{(context) => <Login firebase={context} />}
+			{(context) => <Login firebase={context} setShowToast={setShowToast} setToast={setToast} />}
 		</FirebaseContext.Consumer>
 	)
 }
 
-const Login = ({firebase,match}) => {
+const Login = ({ firebase,setShowToast,setToast }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [loading, setLoading] = useState(false)
+
+	const [validate, setValidate] = useState({ username: '', password: '' })
+
 	const navigate = useNavigate()
+
+	const validateFields = () => {
+		let res = true
+		setValidate({username:'',password:''})
+		
+		if(username === '' || password === ''){
+			setToast({header:"Erro!", body:"Preencha todos os campos para concluir login."})
+			setShowToast(true)
+			setLoading(false)
+			res=false
+			let validateObj = {username:'',password:''}
+			if(username === '') validateObj.username = 'is-invalid'
+			if(password === '') validateObj.password = 'is-invalid'
+			setValidate(validateObj)
+		}
+
+		return res
+	}
+
 	function handleChangeLogin(evt) {
 		setUsername(evt.target.value)
 	}
@@ -25,14 +47,11 @@ const Login = ({firebase,match}) => {
 	function handleChangePassword(evt) {
 		setPassword(evt.target.value)
 	}
-	function signUp(e){
-		e.preventDefault()
-		navigate('/signUp')
-	}
 
 	function handleSubmit(evt) {
 		evt.preventDefault()
 		setLoading(true)
+		if(!validateFields()) return
 		//console.log({ user: { username, password } });
 		FirebaseUserService.login(
 			firebase.getAuthentication(),
@@ -41,6 +60,12 @@ const Login = ({firebase,match}) => {
 			(user) => {
 				if (user == null) {
 					setLoading(false)
+					setToast({header:"Erro!",body:"Email e/ou Senha incorreto(s)."})
+					setShowToast(true)
+					let validateObj = {username:'',password:''}
+					validateObj.username = 'is-invalid'
+					validateObj.password = 'is-invalid'
+					setValidate(validateObj)
 					return
 				}
 				firebase.setUser(user)
@@ -59,13 +84,6 @@ const Login = ({firebase,match}) => {
 						display: 'flex',
 						justifyContent: 'space-evenly',
 					}}>
-					<button
-						type='button'
-						onClick={(e) => {
-							signUp(e)
-						}}
-						className='btn btn-light'>Registrar-se
-					</button>
 					<input
 						type='submit'
 						value='Efetuar Login'
@@ -112,7 +130,7 @@ const Login = ({firebase,match}) => {
 				<h1>Login</h1>
 				<form onSubmit={handleSubmit} style={{ width: '100%' }}>
 					<div className='form-group'>
-						<label htmlFor=''>Nome</label>
+						<label htmlFor=''>Email</label>
 						<input
 							type='username'
 							value={
@@ -124,11 +142,11 @@ const Login = ({firebase,match}) => {
 							name='username'
 							autoComplete='username'
 							onChange={handleChangeLogin}
-							className='form-control'
+							className={`form-control ${validate.username}`}
 						/>
 					</div>
 					<div className='form-group'>
-						<label htmlFor=''>Curso</label>
+						<label htmlFor=''>Senha</label>
 						<input
 							type='password'
 							value={password ?? ''}
@@ -136,7 +154,7 @@ const Login = ({firebase,match}) => {
 							autoComplete='current-password'
 							name='password'
 							onChange={handleChangePassword}
-							className='form-control'
+							className={`form-control ${validate.password}`}
 						/>
 					</div>
 					{renderSubmitButton()}
