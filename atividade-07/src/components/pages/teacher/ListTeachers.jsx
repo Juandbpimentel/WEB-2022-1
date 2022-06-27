@@ -4,14 +4,19 @@ import ScrollArea from '../../layout/ScrollArea'
 import FirebaseContext from '../../../utils/FirebaseContext'
 import TeacherService from '../../../services/TeacherService'
 import RestrictPage from '../RestrictPage'
+import Spiner from '../../layout/Spiner'
 
-const ListTeachersPage = () => {
+const ListTeachersPage = ({ setShowToast, setToast }) => {
 	return (
 		<FirebaseContext.Consumer>
 			{(context) => {
 				return (
 					<RestrictPage isLogged={context.getUser() != null}>
-						<ListTeachers firebase={context} />
+						<ListTeachers
+							firebase={context}
+							setShowToast={setShowToast}
+							setToast={setToast}
+						/>
 					</RestrictPage>
 				)
 			}}
@@ -19,7 +24,7 @@ const ListTeachersPage = () => {
 	)
 }
 
-const ListTeachers = ({ firebase }) => {
+const ListTeachers = ({ firebase, setShowToast, setToast }) => {
 	const [teachers, setTeachers] = useState([])
 	const prev = useRef()
 
@@ -41,26 +46,6 @@ const ListTeachers = ({ firebase }) => {
 		)
 	}, [firebase, teachers])
 
-	const spiner = () => {
-		return (
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					width: '100vw',
-					alignItems: 'center',
-				}}>
-				<div
-					className='spinner-border'
-					style={{
-						width: '3rem',
-						height: '3rem',
-					}}
-					role='status'></div>
-			</div>
-		)
-	}
-
 	function generateTeachersRows() {
 		if (!teachers) return
 		return teachers.map((teacher, i) => {
@@ -69,6 +54,8 @@ const ListTeachers = ({ firebase }) => {
 					teacher={teacher}
 					key={i}
 					firebase={firebase}
+					setShowToast={setShowToast}
+					setToast={setToast}
 				/>
 			)
 		})
@@ -97,7 +84,7 @@ const ListTeachers = ({ firebase }) => {
 					</table>
 				</ScrollArea>
 			)
-		} else return spiner()
+		} else return <Spiner />
 	}
 
 	return (

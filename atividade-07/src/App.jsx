@@ -18,26 +18,27 @@ import Home from './components/pages/Home'
 
 import SignUp from './components/pages/SignUp'
 
-import ToastMessage from './components/layout/ToastMessage' 
+import ToastMessage from './components/layout/ToastMessage'
 
 function App() {
-	const [toast, setToast] = useState({ header: '', body: '' })
+	const [toast, setToast] = useState({ header: '', body: '', bg: 'Light' })
 	const [showToast, setShowToast] = useState(false)
 
 	const renderToast = () => {
-		return <ToastMessage
-		  show={showToast}
-		  header={toast.header}
-		  body={toast.body}
-		  setShowToast={setShowToast}
-		  bg='Light'
-		/>
-	  }
+		return (
+			<ToastMessage
+				show={showToast}
+				header={toast.header}
+				body={toast.body}
+				setShowToast={setShowToast}
+				bg={toast.bg}
+			/>
+		)
+	}
 
 	return (
 		<div className='text-light'>
 			<Navbar />
-			{renderToast()}
 			<div className='container-fluid' style={{ padding: '2rem 2rem' }}>
 				<Routes>
 					<Route
@@ -61,15 +62,64 @@ function App() {
 					<Route path='home' element={<Home />} />
 					<Route path='about' element={<About />} />
 
-					<Route path='createStudent' element={<CreateStudent />} />
-					<Route path='students' element={<ListStudents />} />
-					<Route path='/editStudent/:_id' element={<EditStudent />} />
+					<Route
+						path='createStudent'
+						element={
+							<CreateStudent
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
+					<Route
+						path='students'
+						element={
+							<ListStudents
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
+					<Route
+						path='/editStudent/:_id'
+						element={
+							<EditStudent
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
 
-					<Route path='createTeacher' element={<CreateTeacher />} />
-					<Route path='teachers' element={<ListTeachers />} />
-					<Route path='/editTeacher/:_id' element={<EditTeacher />} />
+					<Route
+						path='createTeacher'
+						element={
+							<CreateTeacher
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
+					<Route
+						path='teachers'
+						element={
+							<ListTeachers
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
+					<Route
+						path='/editTeacher/:_id'
+						element={
+							<EditTeacher
+								setToast={setToast}
+								setShowToast={setShowToast}
+							/>
+						}
+					/>
 				</Routes>
 			</div>
+			{renderToast()}
 		</div>
 	)
 }

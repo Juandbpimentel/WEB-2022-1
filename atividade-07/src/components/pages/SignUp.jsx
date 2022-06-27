@@ -42,6 +42,7 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			setToast({
 				header: 'Erro!',
 				body: 'Preencha todos os campos para concluir login.',
+				bg:'danger'
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -59,10 +60,31 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			return res
 		}
 
+		if(password.length < 6){
+			setToast({
+				header: 'Erro!',
+				body: 'A senha precisa ter no mínimo 6 caracteres.',
+				bg:'danger'
+			})
+			setShowToast(true)
+			setLoading(false)
+			let validateObj = {
+				password: '',
+				confirmationPassword: '',
+			}
+
+			validateObj.password = 'is-invalid'
+			if(confirmationPassword == password) validateObj.confirmationPassword = 'is-invalid' 
+			setValidate(validateObj)
+			res = false
+			return res
+		}
+
 		if (password != confirmationPassword) {
 			setToast({
 				header: 'Erro!',
 				body: 'A confirmação da senha precisa ser igual á senha.',
+				bg:'danger'
 			})
 			setShowToast(true)
 			setLoading(false)

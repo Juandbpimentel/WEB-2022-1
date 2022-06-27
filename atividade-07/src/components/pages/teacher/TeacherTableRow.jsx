@@ -4,6 +4,8 @@ import TeacherService from '../../../services/TeacherService';
 function TeacherTableRow({
     teacher: { _id, name, salary, university, degree },
     firebase,
+    setShowToast, 
+    setToast 
 }) {
     function deleteTeacher() {
         let res = window.confirm(

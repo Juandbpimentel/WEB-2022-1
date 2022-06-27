@@ -5,15 +5,21 @@ import styles from './Login.module.css'
 import FirebaseContext from '../../utils/FirebaseContext'
 import FirebaseUserService from '../../services/FirebaseUserService'
 
-const LoginPage = ({setShowToast,setToast}) => {
+const LoginPage = ({ setShowToast, setToast }) => {
 	return (
 		<FirebaseContext.Consumer>
-			{(context) => <Login firebase={context} setShowToast={setShowToast} setToast={setToast} />}
+			{(context) => (
+				<Login
+					firebase={context}
+					setShowToast={setShowToast}
+					setToast={setToast}
+				/>
+			)}
 		</FirebaseContext.Consumer>
 	)
 }
 
-const Login = ({ firebase,setShowToast,setToast }) => {
+const Login = ({ firebase, setShowToast, setToast }) => {
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [loading, setLoading] = useState(false)
@@ -24,16 +30,20 @@ const Login = ({ firebase,setShowToast,setToast }) => {
 
 	const validateFields = () => {
 		let res = true
-		setValidate({username:'',password:''})
-		
-		if(username === '' || password === ''){
-			setToast({header:"Erro!", body:"Preencha todos os campos para concluir login."})
+		setValidate({ username: '', password: '' })
+
+		if (username === '' || password === '') {
+			setToast({
+				header: 'Erro!',
+				body: 'Preencha todos os campos para concluir login.',
+				bg: 'danger',
+			})
 			setShowToast(true)
 			setLoading(false)
-			res=false
-			let validateObj = {username:'',password:''}
-			if(username === '') validateObj.username = 'is-invalid'
-			if(password === '') validateObj.password = 'is-invalid'
+			res = false
+			let validateObj = { username: '', password: '' }
+			if (username === '') validateObj.username = 'is-invalid'
+			if (password === '') validateObj.password = 'is-invalid'
 			setValidate(validateObj)
 		}
 
@@ -51,7 +61,7 @@ const Login = ({ firebase,setShowToast,setToast }) => {
 	function handleSubmit(evt) {
 		evt.preventDefault()
 		setLoading(true)
-		if(!validateFields()) return
+		if (!validateFields()) return
 		//console.log({ user: { username, password } });
 		FirebaseUserService.login(
 			firebase.getAuthentication(),
@@ -60,9 +70,13 @@ const Login = ({ firebase,setShowToast,setToast }) => {
 			(user) => {
 				if (user == null) {
 					setLoading(false)
-					setToast({header:"Erro!",body:"Email e/ou Senha incorreto(s)."})
+					setToast({
+						header: 'Erro!',
+						body: 'Email e/ou Senha incorreto(s).',
+						bg:'danger'
+					})
 					setShowToast(true)
-					let validateObj = {username:'',password:''}
+					let validateObj = { username: '', password: '' }
 					validateObj.username = 'is-invalid'
 					validateObj.password = 'is-invalid'
 					setValidate(validateObj)

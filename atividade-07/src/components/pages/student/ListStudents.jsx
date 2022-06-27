@@ -4,14 +4,19 @@ import ScrollArea from '../../layout/ScrollArea'
 import FirebaseContext from '../../../utils/FirebaseContext'
 import StudentService from '../../../services/StudentService'
 import RestrictPage from '../RestrictPage'
+import Spiner from '../../layout/Spiner'
 
-const ListStudentsPage = () => (
+const ListStudentsPage = ({ setShowToast, setToast }) => (
 	<>
 		<FirebaseContext.Consumer>
 			{(context) => {
 				return (
 					<RestrictPage isLogged={context.getUser() != null}>
-						<ListStudents firebase={context} />
+						<ListStudents
+							firebase={context}
+							setShowToast={setShowToast}
+							setToast={setToast}
+						/>
 					</RestrictPage>
 				)
 			}}
@@ -19,7 +24,7 @@ const ListStudentsPage = () => (
 	</>
 )
 
-const ListStudents = ({ firebase }) => {
+const ListStudents = ({ firebase ,setShowToast, setToast}) => {
 	const [students, setStudents] = useState([])
 	const [loaded, setLoaded] = useState(false)
 	const prev = useRef()
@@ -41,34 +46,16 @@ const ListStudents = ({ firebase }) => {
 		)
 	}, [firebase, students])
 
-	const spiner = ()=>{
-		return (
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					width: '100vw',
-					alignItems: 'center',
-				}}>
-				<div
-					className='spinner-border'
-					style={{
-						width: '3rem',
-						height: '3rem',
-					}}
-					role='status'></div>
-			</div>
-		)
-	}
-
 	function generateStudentsRows() {
-		if(!students) return;
+		if (!students) return
 		return students.map((student, i) => {
 			return (
 				<StudentTableRow
 					student={student}
 					key={i}
 					firebase={firebase}
+					setShowToast={setShowToast}
+					setToast={setToast}
 				/>
 			)
 		})
@@ -76,7 +63,7 @@ const ListStudents = ({ firebase }) => {
 
 	function generateTable() {
 		if (!loaded) {
-			return spiner()
+			return <Spiner />
 		} else {
 			return (
 				<ScrollArea size={10}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import StudentService from '../../../services/StudentService';
 
-function StudentTableRow({ student: { _id, name, course, ira }, firebase }) {
+function StudentTableRow({ student: { _id, name, course, ira }, firebase, setShowToast, setToast }) {
     function deleteStudent(_id, name) {
         let res = window.confirm(
             `Você deseja mesmo excluir o estudante de nome: ${name} ?`

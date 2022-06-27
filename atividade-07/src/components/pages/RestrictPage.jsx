@@ -20,7 +20,7 @@ const RestrictPage = (props) => {
 						navigate('/')
 					}}
 					style={{ marginLeft: 10 }}
-					className='btn btn-light'>
+					className='btn btn-primary'>
 					Fazer Log In
 				</button>
 			</div>
