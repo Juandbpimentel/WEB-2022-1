@@ -45,6 +45,24 @@ const Login = ({ firebase, setShowToast, setToast }) => {
 			if (username === '') validateObj.username = 'is-invalid'
 			if (password === '') validateObj.password = 'is-invalid'
 			setValidate(validateObj)
+			return res;
+		}
+		
+		if(password.length < 6){
+			setToast({
+				header: 'Erro!',
+				body: 'A senha precisa ter no mínimo 6 caracteres.',
+				bg:'danger'
+			})
+			setShowToast(true)
+			setLoading(false)
+			let validateObj = {
+				password: ''
+			}
+			validateObj.password = 'is-invalid'
+			setValidate(validateObj)
+			res = false
+			return res
 		}
 
 		return res
