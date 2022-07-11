@@ -21,7 +21,7 @@ import SignUp from './components/pages/SignUp'
 import ToastMessage from './components/layout/ToastMessage'
 
 function App() {
-	const [toast, setToast] = useState({ header: '', body: '', bg: 'Light' })
+	const [toast, setToast] = useState({ header: '', body: '', bg: 'Light', color:'black' })
 	const [showToast, setShowToast] = useState(false)
 
 	const renderToast = () => {
@@ -30,6 +30,7 @@ function App() {
 				show={showToast}
 				header={toast.header}
 				body={toast.body}
+				color = {toast.color}
 				setShowToast={setShowToast}
 				bg={toast.bg}
 			/>

@@ -37,6 +37,7 @@ const Login = ({ firebase, setShowToast, setToast }) => {
 				header: 'Erro!',
 				body: 'Preencha todos os campos para concluir login.',
 				bg: 'danger',
+				color: 'black',
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -52,7 +53,8 @@ const Login = ({ firebase, setShowToast, setToast }) => {
 			setToast({
 				header: 'Erro!',
 				body: 'A senha precisa ter no mínimo 6 caracteres.',
-				bg:'danger'
+				bg: 'danger',
+				color: 'black',
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -91,7 +93,8 @@ const Login = ({ firebase, setShowToast, setToast }) => {
 					setToast({
 						header: 'Erro!',
 						body: 'Email e/ou Senha incorreto(s).',
-						bg:'danger'
+						bg: 'danger',
+						color: 'black',
 					})
 					setShowToast(true)
 					let validateObj = { username: '', password: '' }

@@ -42,7 +42,8 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			setToast({
 				header: 'Erro!',
 				body: 'Preencha todos os campos para concluir login.',
-				bg:'danger'
+				bg: 'danger',
+				color: 'black',
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -60,11 +61,12 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			return res
 		}
 
-		if(password.length < 6){
+		if (password.length < 6) {
 			setToast({
 				header: 'Erro!',
 				body: 'A senha precisa ter no mínimo 6 caracteres.',
-				bg:'danger'
+				bg: 'danger',
+				color: 'black',
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -74,7 +76,8 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			}
 
 			validateObj.password = 'is-invalid'
-			if(confirmationPassword == password) validateObj.confirmationPassword = 'is-invalid' 
+			if (confirmationPassword == password)
+				validateObj.confirmationPassword = 'is-invalid'
 			setValidate(validateObj)
 			res = false
 			return res
@@ -84,7 +87,8 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 			setToast({
 				header: 'Erro!',
 				body: 'A confirmação da senha precisa ser igual á senha.',
-				bg:'danger'
+				bg: 'danger',
+				color: 'black',
 			})
 			setShowToast(true)
 			setLoading(false)
@@ -118,7 +122,7 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 	function handleSubmit(evt) {
 		evt.preventDefault()
 		setLoading(true)
-		if(!validateFields()) return
+		if (!validateFields()) return
 		//console.log({ user: { username, password } });
 		FirebaseUserService.signUp(
 			firebase.getAuthentication(),
@@ -128,32 +132,44 @@ const SignUp = ({ firebase, setShowToast, setToast }) => {
 				if (resp) {
 					firebase.setUser(content)
 					navigate('/home')
-				}else{
+				} else {
 					setLoading(false)
-					setToast({header:"Erro!",body:"O email já foi cadastrado no sistema."})
-					setShowToast(true)
-					let validateObj = {username:'',password:'',confirmationPassword:''}
-					validateObj.username = 'is-invalid'
-					setValidate(validateObj)
+					if (content == 'auth/email-already-in-use') {
+						setToast({
+							header: 'Erro!',
+							body: 'Uma conta já foi criada com esse email',
+							bg: 'danger',
+							color: 'black',
+						})
+						setShowToast(true)
+						let validateObj = { username: '' }
+						validateObj.username = 'is-invalid'
+						validateObj.password = 'is-invalid'
+						validateObj.confirmationPassword = 'is-invalid'
+						setValidate(validateObj)
+					} else {
+						setToast({
+							header: 'Erro!',
+							body: content,
+							bg: 'danger',
+							color: 'black',
+						})
+						setShowToast(true)
+						let validateObj = {
+							username: '',
+							password: '',
+							confirmationPassword: '',
+						}
+						validateObj.username = 'is-invalid'
+						validateObj.password = 'is-invalid'
+						validateObj.confirmationPassword = 'is-invalid'
+						setValidate(validateObj)
+					}
 				}
 			},
 		)
-		/*
-		FirebaseUserService.login(
-			firebase.getAuthentication(),
-			username,
-			password,
-			(user) => {
-				if (user == null) {
-					setLoading(false)
-					return
-				}
-				firebase.setUser(user)
-				navigate('/home')
-			},
-		)
-		*/
 	}
+	
 	function renderSubmitButton() {
 		if (loading == false) {
 			return (

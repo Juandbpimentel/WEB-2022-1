@@ -15,9 +15,25 @@ function TeacherTableRow({
             TeacherService.delete(
                 firebase.getFirestoreDb(),
                 (_id) => {
+                    if(_id === null){
+                        setToast({
+                            header: 'Erro!',
+                            body: 'Não foi possível deletar o professor, tente novamente.',
+                            bg: 'danger',
+                            color: 'black',
+                        })
+                        setShowToast(true)
+                    }
                     console.log(
                         `Registro do professor de id:${_id} foi apagado.`
                     );
+                    setToast({
+                        header: 'Deleção bem sucedida!',
+                        body: `Professor de id ${_id} foi apagado com sucesso!`,
+                        bg: 'success',
+                        color:'white'
+                    })
+                    setShowToast(true)
                 },
                 _id
             );

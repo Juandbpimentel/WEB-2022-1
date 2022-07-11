@@ -1,6 +1,6 @@
 import { Toast, ToastContainer } from 'react-bootstrap'
 
-const ToastMessage = ({ header, body, show, bg, setShowToast }) => {
+const ToastMessage = ({ header, body, show, bg, color, setShowToast }) => {
 	return (
 		<ToastContainer position='top-center' style={{ marginTop: '5em' }}>
 			<Toast
@@ -13,7 +13,7 @@ const ToastMessage = ({ header, body, show, bg, setShowToast }) => {
 					<strong className='me-auto'>{header}</strong>
 				</Toast.Header>
 				<Toast.Body>
-					<span style={{ color: 'black', fontWeight: 'bold' }}>
+					<span style={{ color, fontWeight: 'bold' }}>
 						{body}
 					</span>
 				</Toast.Body>

@@ -30,7 +30,7 @@ export default class StudentService {
 
                 callback(students);
             })
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static list_onSnapshot = (firestore, callback) => {
@@ -75,20 +75,20 @@ export default class StudentService {
     static create = (firestore, callback, body) => {
         addDoc(collection(firestore, 'students'), body)
             .then((doc) => callback(doc.id))
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static update = (firestore, callback, _id, body) => {
         const docRef = doc(firestore, 'students', _id);
         updateDoc(docRef, body)
             .then(() => callback(_id))
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static delete = (firestore, callback, _id) => {
         const docRef = doc(firestore, 'students', _id);
         deleteDoc(docRef)
             .then(() => callback(_id))
-            .catch((err) => console.error(err));
+            .catch((err) => {console.log(err); callback(null)});
     };
 }

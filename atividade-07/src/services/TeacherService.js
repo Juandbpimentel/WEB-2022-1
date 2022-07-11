@@ -38,26 +38,26 @@ export default class TeacherService {
             .then((docSnap) => {
                 if (docSnap.exists()) callback(docSnap.data());
             })
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static create = (firestore, callback, body) => {
         addDoc(collection(firestore, 'teachers'), body)
             .then((doc) => callback(doc.id))
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static update = (firestore, callback, _id, body) => {
         const docRef = doc(firestore, 'teachers', _id);
         updateDoc(docRef, body)
             .then(() => callback(_id))
-            .catch((err) => console.error(err));
+            .catch((err) => console.log(err));
     };
 
     static delete = (firestore, callback, _id) => {
         const docRef = doc(firestore, 'teachers', _id);
         deleteDoc(docRef)
             .then(() => callback(_id))
-            .catch((err) => console.error(err));
+            .catch((err) => {console.log(err);callback(null)});
     };
 }

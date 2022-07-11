@@ -12,7 +12,23 @@ function StudentTableRow({ student: { _id, name, course, ira }, firebase, setSho
             StudentService.delete(
                 firebase.getFirestoreDb(),
                 (_id) => {
-                    console.log(`Estudante de id ${_id} apagado com sucesso.`);
+                    if(_id === null){
+                        setToast({
+                            header: 'Erro!',
+                            body: 'Não foi possível deletar o estudante, tente novamente.',
+                            bg: 'danger',
+                            color: 'black',
+                        })
+                        setShowToast(true)
+                    }
+                    console.log(`Estudante de id ${_id} foi apagado com sucesso.`);
+                    setToast({
+                        header: 'Deleção bem sucedida!',
+                        body: `Estudante de id ${_id} foi apagado com sucesso!`,
+                        bg: 'success',
+                        color:'white'
+                    })
+                    setShowToast(true)
                 },
                 _id
             );
