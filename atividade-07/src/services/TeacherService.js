@@ -7,13 +7,14 @@ import {
     updateDoc,
     deleteDoc,
     getDoc,
+    orderBy,
 } from 'firebase/firestore';
 
 export default class TeacherService {
     static unscribe = null;
 
     static list_onSnapshot = (firestore, callback) => {
-        const q = query(collection(firestore, 'teachers'));
+        const q = query(collection(firestore, 'teachers'), orderBy('name'));
 
         TeacherService.unscribe = onSnapshot(q, (querySnapshot) => {
             let teachers = [];
